@@ -1,0 +1,9 @@
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\bin\Debug\DataAnalysisSoftware.exe.config
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\bin\Debug\DataAnalysisSoftware.exe
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\bin\Debug\DataAnalysisSoftware.pdb
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.csprojResolveAssemblyReference.cache
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.Form1.resources
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.Properties.Resources.resources
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.csproj.GenerateResource.Cache
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.exe
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.pdb
