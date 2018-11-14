@@ -26,16 +26,6 @@ namespace DataAnalysisSoftware
                 string data = "";
                 int a = 0;
                 int b = 0;
-                int totalRows = 0;
-                int rows = 0;
-
-                dataView.ColumnCount = 6;
-                dataView.Columns[0].Name = "Heart Rates";
-                dataView.Columns[1].Name = "Speed";
-                dataView.Columns[2].Name = "Cadence";
-                dataView.Columns[3].Name = "Altitude";
-                dataView.Columns[4].Name = "Power";
-                dataView.Columns[5].Name = "Power Balance and Pedaling Index";
 
                 StreamReader streamReader = new StreamReader(openFiles.FileName);
                 string[] filelines = File.ReadAllLines(openFiles.FileName);
@@ -50,48 +40,35 @@ namespace DataAnalysisSoftware
                         data += line + "\r\n";
                     }
                     b++;
-                    dataView.AllowUserToAddRows = false;
-                    string text = "";
-                    for (text = streamReader.ReadLine(); text != null; text = streamReader.ReadLine())
+                }
+                    fileReading.Text = b + data;
+
+                    dataView.ColumnCount = 6;
+                    dataView.Columns[0].Name = "Heart Rates";
+                    dataView.Columns[1].Name = "Speed";
+                    dataView.Columns[2].Name = "Cadence";
+                    dataView.Columns[3].Name = "Altitude";
+                    dataView.Columns[4].Name = "Power";
+                    dataView.Columns[5].Name = "Power Balance and Pedaling Index";
+
+                dataView.AllowUserToAddRows = false;
+                foreach (string line in filelines)
+                {
+                    data += line + "\r\n";
+                    string[] text = line.Split('\t');
+                    try
                     {
-                        string[] array = text.Split('\t');
-                        dataView.Rows.Add(array);
+                        for (int x = 0; x < text.Length; x++)
+                        {
+                            string[] row_val = new string[] { text[0], text[1], text[2], text[3], text[4], text[5] };
+                            dataView.Rows.Add(row_val);
+                        }
                     }
-                    //fileReading.Text = b + data;
-
-                    //int s = totalRows - rows;
-                    //string[] arrayData = new string[s];
-
-                    //string heart = "";
-                    //string speed = "";
-                    //string cadence = "";
-                    //string altitude = "";
-                    //string power = "";
-                    //string pbpi = "";
-                    //if (rows != 0)
-                    //{
-                    //    foreach (string line in filelines)
-                    //    {
-                    //        if (rows < b)
-                    //        {
-                    //            data += line + "\r\n";
-                    //            string[] words = line.Split('\t');
-                    //            for (int x = 0; x < words.Length; x++)
-                    //            {
-                    //                if (x == 0) heart = words[x];
-                    //                else if (x == 1) speed = words[x];
-                    //                else if (x == 2) cadence = words[x];
-                    //                else if (x == 3) altitude = words[x];
-                    //                else if (x == 4) power = words[x];
-                    //                else pbpi = words[x];
-                    //            }
-                    //            string[] row_val = new string[] { heart, speed, cadence, altitude, power, pbpi };
-                    //            dataView.Rows.Add(row_val);
-                    //        }
-                    //        else b++;
-                    //    }
-                    //}
-                    fileReading.Text = data;
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Error occured", "Error");
+                    }
+                    
                 }
             }
         }
