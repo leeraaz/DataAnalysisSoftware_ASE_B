@@ -61,6 +61,16 @@
             this.lblMaxHeartRate = new System.Windows.Forms.Label();
             this.monthlyCalender = new System.Windows.Forms.MonthCalendar();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.FileNameList = new System.Windows.Forms.ListBox();
+            this.time_interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.heart_rate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.speeds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cadences = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.altitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Power_watt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.power_balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pedalling_index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.left_right_balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataView)).BeginInit();
             this.groupHeading.SuspendLayout();
@@ -118,6 +128,16 @@
             // dataView
             // 
             this.dataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.time_interval,
+            this.heart_rate,
+            this.speeds,
+            this.cadences,
+            this.altitude,
+            this.Power_watt,
+            this.power_balance,
+            this.pedalling_index,
+            this.left_right_balance});
             this.dataView.Location = new System.Drawing.Point(12, 236);
             this.dataView.Name = "dataView";
             this.dataView.Size = new System.Drawing.Size(664, 381);
@@ -142,7 +162,7 @@
             this.groupHeading.Controls.Add(this.lblDate);
             this.groupHeading.Controls.Add(this.lblMonitor);
             this.groupHeading.Controls.Add(this.lblLength);
-            this.groupHeading.Location = new System.Drawing.Point(257, 62);
+            this.groupHeading.Location = new System.Drawing.Point(684, 68);
             this.groupHeading.Name = "groupHeading";
             this.groupHeading.Size = new System.Drawing.Size(198, 162);
             this.groupHeading.TabIndex = 7;
@@ -343,23 +363,79 @@
             // 
             // monthlyCalender
             // 
-            this.monthlyCalender.Location = new System.Drawing.Point(18, 62);
+            this.monthlyCalender.Location = new System.Drawing.Point(454, 68);
             this.monthlyCalender.Name = "monthlyCalender";
             this.monthlyCalender.TabIndex = 9;
+            this.monthlyCalender.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthlyCalender_DateChanged);
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(461, 62);
+            this.richTextBox1.Location = new System.Drawing.Point(138, 68);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(385, 146);
+            this.richTextBox1.Size = new System.Drawing.Size(314, 162);
             this.richTextBox1.TabIndex = 10;
             this.richTextBox1.Text = "";
+            // 
+            // FileNameList
+            // 
+            this.FileNameList.FormattingEnabled = true;
+            this.FileNameList.Location = new System.Drawing.Point(12, 68);
+            this.FileNameList.Name = "FileNameList";
+            this.FileNameList.Size = new System.Drawing.Size(120, 160);
+            this.FileNameList.TabIndex = 11;
+            this.FileNameList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FileNameList_MouseClick);
+            // 
+            // time_interval
+            // 
+            this.time_interval.HeaderText = "Time Interval";
+            this.time_interval.Name = "time_interval";
+            // 
+            // heart_rate
+            // 
+            this.heart_rate.HeaderText = "Heart Rate";
+            this.heart_rate.Name = "heart_rate";
+            // 
+            // speeds
+            // 
+            this.speeds.HeaderText = "Speed";
+            this.speeds.Name = "speeds";
+            // 
+            // cadences
+            // 
+            this.cadences.HeaderText = "Cadence";
+            this.cadences.Name = "cadences";
+            // 
+            // altitude
+            // 
+            this.altitude.HeaderText = "Altitude";
+            this.altitude.Name = "altitude";
+            // 
+            // Power_watt
+            // 
+            this.Power_watt.HeaderText = "Power(Watts)";
+            this.Power_watt.Name = "Power_watt";
+            // 
+            // power_balance
+            // 
+            this.power_balance.HeaderText = "Power Balance";
+            this.power_balance.Name = "power_balance";
+            // 
+            // pedalling_index
+            // 
+            this.pedalling_index.HeaderText = "Pedalling Index";
+            this.pedalling_index.Name = "pedalling_index";
+            // 
+            // left_right_balance
+            // 
+            this.left_right_balance.HeaderText = "Left Right Balance";
+            this.left_right_balance.Name = "left_right_balance";
             // 
             // Dashbord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(932, 629);
+            this.Controls.Add(this.FileNameList);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.monthlyCalender);
             this.Controls.Add(this.gropSumData);
@@ -418,6 +494,16 @@
         private System.Windows.Forms.Label lblMaxHeartRate;
         private System.Windows.Forms.MonthCalendar monthlyCalender;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.ListBox FileNameList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn time_interval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn heart_rate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn speeds;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cadences;
+        private System.Windows.Forms.DataGridViewTextBoxColumn altitude;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Power_watt;
+        private System.Windows.Forms.DataGridViewTextBoxColumn power_balance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pedalling_index;
+        private System.Windows.Forms.DataGridViewTextBoxColumn left_right_balance;
     }
 }
 

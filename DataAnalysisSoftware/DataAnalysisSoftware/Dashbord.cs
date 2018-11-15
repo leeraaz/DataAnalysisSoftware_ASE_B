@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Globalization;
 
-
 namespace DataAnalysisSoftware
 {
     public partial class Dashbord : Form
@@ -19,75 +18,155 @@ namespace DataAnalysisSoftware
         {
             InitializeComponent();
         }
-
+        public DateTime selectionStart { get; set; }
         public static double averageSpeed { get; set; }
         public static double maxSpeed { get; set; }
         public static double averageSpeedMiles { get; set; }
         public static double maxSpeedMiles { get; set; }
-        public static double avereageHeartRate { get; set; }
+        public static double averageHeartRate { get; set; }
         public static double maxHeartRate { get; set; }
         public static double minHeartRate { get; set; }
         public static double averagePower { get; set; }
         public static double maxPower { get; set; }
         public static double averageAltitude { get; set; }
         public static double maxAltitude { get; set; }
-        public static double averaAltitudeMile { get; set; }
+        public static double averageAltitudeMile { get; set; }
         public static double maxAltitudeMile { get; set; }
         public static double totalDistance { get; set; }
+        public static double totalDistanceMiles { get; set; }
         public static string smode { get; set; }
         public DateTime SelectionStart { get; set; }
+
         string file_name, path;
-        string file, getfilename;
+        //string file, getfilename;
         string dateCalc;
         string[] fdata;
-        string fileDatas;
+        
         string fileData, filename;
         string lengthValue, startTimeValue, intervalValue;
         string dateStart = "11/14/2018";
         string finalDate;
         string data = "";
         int count = 0;
-        int rows = 0;
-        int a = 0, b = 0;
 
-        OpenFileDialog filedia = new OpenFileDialog();
-        public void btnLoad_Click(object sender, EventArgs e)
+        //for graph uses
+        public static double[] graphHeartRate { get; set; }
+        public static double[] graphSpeed { get; set; }
+        public static double[] graphCadence { get; set; }
+        public static double[] graphAltitude { get; set; }
+
+        private void FileNameList_MouseClick(object sender, MouseEventArgs e)
+        {
+            string fileName = FileNameList.SelectedItem.ToString();
+            string location = path;
+
+            foreach(string item in fdata)
+            {
+                string data = item.Split('\\').Last();
+                if(data == fileName)
+                {
+                    fileReading(item);
+                    SummaryCalculation();
+                }
+            }
+        }
+
+        public static double[] graphPower { get; set; }
+
+        private void monthlyCalender_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            FileNameList.Items.Clear();
+            FileNameList.Items.Add(monthlyCalender.SelectionStart.ToString());
+            dateCalc = monthlyCalender.SelectionStart.ToString();
+
+            // file value start 
+
+
+
+            foreach (string itemData in fdata)
+            {
+
+
+
+                string value = itemData;
+
+
+                StreamReader fileReaderFolder = new StreamReader(value);
+
+
+                while (!fileReaderFolder.EndOfStream)
+                {
+                    fileData = fileReaderFolder.ReadLine();
+                    if (fileData.Contains("Date"))
+                    {
+                        string startTime = fileData;
+                        string arraStartTime = startTime.Split('=').Last();
+                        string one = "";
+                        //var date = "11252017";
+                        var date = DateTime.ParseExact(arraStartTime, "yyyyMMdd", CultureInfo.InvariantCulture);
+
+                        if (date == DateTime.Parse(dateCalc))
+                        {
+                            FileNameList.ClearSelected();
+                            FileNameList.Items.Add(itemData.Split('\\').Last());
+
+                            path = itemData;
+
+                            FileNameList.Update();
+                            //MessageBox.Show(one); 
+                        }
+
+                        //cldFolderView.AddBoldedDate(date);
+                        //cldFolderView.UpdateBoldedDates();
+
+                        //cldFolderView.SelectionStart = DateTime.Parse(startValue);
+                    }
+                }
+            }
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
         {
             //selection of file
-            // bool flag = this.openFiles.ShowDialog() != DialogResult.Cancel;
-           // OpenFileDialog filedia = new OpenFileDialog();
-            if (filedia.ShowDialog() == DialogResult.OK)
+            //bool flag = this.openFiles.ShowDialog() != DialogResult.Cancel;
+            FolderBrowserDialog folder = new FolderBrowserDialog();
+            if (folder.ShowDialog() == DialogResult.OK)
             {
-                fdata = filedia.FileNames;
+                //string data = "";
+                //int rows = 0;
+                //int a = 0;
+                //int b = 0;
+                fdata = Directory.GetFiles(folder.SelectedPath);
                 DateTime timeValue;
                 string valueTwo = fdata[0];
-
                 StreamReader streamReader = new StreamReader(valueTwo);
+
                 while (!streamReader.EndOfStream)
                 {
                     fileData = streamReader.ReadLine();
                     if (fileData.Contains("Date"))
                     {
                         string startTime = fileData;
-                        string arraStratTime = startTime.Split('=').Last();
-                        var dt = DateTime.ParseExact(arraStratTime, "yyyyMMdd", CultureInfo.InvariantCulture);
+                        string arraStartTime = startTime.Split('=').Last();
+                        var dt = DateTime.ParseExact(arraStartTime, "yyyyMMdd", CultureInfo.InvariantCulture);
                         dateStart = dt.ToString();
                     }
                 }
 
-                foreach (string itemData in fdata)
+                foreach(string itemData in fdata)
                 {
                     string value = itemData;
-                    StreamReader fileReaderFolder = new StreamReader(value);
-                    while (!fileReaderFolder.EndOfStream)
+
+                    StreamReader fileReader = new StreamReader(value);
+                    while (!fileReader.EndOfStream)
                     {
-                        fileData = fileReaderFolder.ReadLine();
+                        fileData = fileReader.ReadLine();
                         if (fileData.Contains("Date"))
                         {
                             string startTime = fileData;
-                            string arraysStartTime = startTime.Split('=').Last();
-                            //var date = "11252017";
-                            var date = DateTime.ParseExact(arraysStartTime, "yyyyMMdd", CultureInfo.InvariantCulture);
+                            string arraStartTime = startTime.Split('=').Last();
+                            var date = DateTime.ParseExact(arraStartTime, "yyyyMMdd", CultureInfo.InvariantCulture);
+
                             timeValue = date;
 
                             monthlyCalender.AddBoldedDate(date);
@@ -96,23 +175,18 @@ namespace DataAnalysisSoftware
                             monthlyCalender.SelectionStart = DateTime.Parse(dateStart);
                         }
                     }
-                    fileReading(data);
-                    SummaryCalculation();
                 }
-                richTextBox1.Text = data;
-            }
-        }
-                //fileReading.Text = b + data;
-
-                //loading data into grid view.
                 //dataView.AllowUserToAddRows = false;
-                //dataView.ColumnCount = 6;
+                //dataView.ColumnCount = 9;
                 //dataView.Columns[0].Name = "Heart Rates";
                 //dataView.Columns[1].Name = "Speed";
                 //dataView.Columns[2].Name = "Cadence";
                 //dataView.Columns[3].Name = "Altitude";
                 //dataView.Columns[4].Name = "Power";
                 //dataView.Columns[5].Name = "Power Balance and Pedaling Index";
+                //dataView.Columns[6].Name = "Power x";
+                //dataView.Columns[7].Name = "Power Balx";
+                //dataView.Columns[8].Name = "Power Baing Index";
 
                 //if (rows != 0)
                 //{
@@ -130,6 +204,7 @@ namespace DataAnalysisSoftware
                 //                {
                 //                    string[] array = text.Split(new char[] { '\t' });
                 //                    dataView.Rows.Add(array);
+                //                    fileReading(data);
                 //                }
                 //            }
                 //            catch (Exception)
@@ -140,39 +215,46 @@ namespace DataAnalysisSoftware
                 //        else b++;
                 //    }
                 //}
-              //  fileReading.Text = data;
-           // }
-        
-
-        private void SummaryCalculation()
+                //richTextBox1.Text = data;
+            }
+        }
+        private void btnCancel_Click(object sender, EventArgs e)
         {
+            Application.Exit();
+        }
 
+        private void btnGraph_Click(object sender, EventArgs e)
+        {
+            graphImage gi = new graphImage();
+            gi.Show();
+            //gi.graphDataView.AllowUserToAddRows = false;
+            //gi.graphDataView.ColumnCount = 6;
+            //gi.graphDataView.Columns[0].Name = "Heart Rates";
+            //gi.graphDataView.Columns[1].Name = "Speed";
+            //gi.graphDataView.Columns[2].Name = "Cadence";
+            //gi.graphDataView.Columns[3].Name = "Altitude";
+            //gi.graphDataView.Columns[4].Name = "Power";
+            //gi.graphDataView.Columns[5].Name = "Power Balance and Pedaling Index";
+            //foreach (DataGridViewRow row in dataView.Rows)
+            //{
+
+            //    int n = gi.graphDataView.Rows.Add();
+
+            //    gi.graphDataView.Rows[n].Cells[0].Value = row.Cells[0].Value;
+            //    gi.graphDataView.Rows[n].Cells[1].Value = row.Cells[1].Value;
+            //    gi.graphDataView.Rows[n].Cells[2].Value = row.Cells[2].Value;
+            //    gi.graphDataView.Rows[n].Cells[3].Value = row.Cells[3].Value;
+            //    gi.graphDataView.Rows[n].Cells[4].Value = row.Cells[4].Value;
+            //    gi.graphDataView.Rows[n].Cells[5].Value = row.Cells[5].Value;
+            //}
         }
 
         public void fileReading(String data)
         {
-
-           // fileDatas = Path.GetFileName(filedia.FileName);
-            //DateTime timeValue;
-          //  string val = fileDatas;
-
-         // StreamReader streamReader = new StreamReader(fileDatas);
-            // while (!streamReader.EndOfStream)
-            StreamReader streamReader = new StreamReader(filedia.FileName);
             
-            string[] filelines = File.ReadAllLines(filedia.FileName);
-
-            foreach (string line in filelines)
-            {
-                if (line.Equals("[HRData]"))
-                {
-                    MessageBox.Show(line.ToString(), "File");
-                    rows = a;
-                }
-                a++;
-                MessageBox.Show(a.ToString(), "MEssage");
-            }
-           // richTextBox1.Text = a + "\r\n";
+            StreamReader streamReader = new StreamReader(data);
+            
+            // richTextBox1.Text = a + "\r\n";
             while (!streamReader.EndOfStream)
             {
                 fileData = streamReader.ReadLine();
@@ -306,8 +388,8 @@ namespace DataAnalysisSoftware
                 }
                 if (fileData.Contains("SMode"))
                 {
-                    string smode = fileData;
-                    string[] arraySmode = smode.Split('=');
+                    string smodeValue = fileData;
+                    string[] arraySmode = smodeValue.Split('=');
                     foreach (String itemSmode in arraySmode)
                     {
                         smode = itemSmode;
@@ -315,6 +397,10 @@ namespace DataAnalysisSoftware
                     }
                 }
             }
+
+            List<List<string>> filter = File.ReadLines(data).SkipWhile(line => line != "[HRData]").Skip(1).Select(line => line.Split().ToList()).ToList();
+
+            count = filter.Count();
 
             double speedTotal = 0;
             double heartRateTotal = 0;
@@ -335,235 +421,275 @@ namespace DataAnalysisSoftware
             double min = double.Parse(arrayStartTimes[0]);
             double hrs = double.Parse(arrayStartTimes[1]);
             double intervalTwo = 0;
-            double interval = double.Parse(intervalValue);
-            intervalTwo = intervalTwo + interval;
 
-            if (rows != 0)
+            for (int x = 0; x < count; x++)
             {
-                MessageBox.Show(rows.ToString(), "Message");
-                foreach (string line in filelines)
+                double interval = double.Parse(intervalValue);
+                intervalTwo = intervalTwo + interval;
+                //dataView.Rows.Add(array);
+                dataView.Rows.Add();
+                DateTime timer = DateTime.ParseExact(startTimeValue, "HH:mm:ss.FFF", CultureInfo.InvariantCulture);
+                dataView.Rows[x].Cells[0].Value = finalDate + " | " + timer.AddSeconds(intervalTwo).TimeOfDay;
+
+                char[] smodeData = smode.ToCharArray();
+                char speed = smodeData[0];
+                char cadence = smodeData[1];
+                char altitude = smodeData[2];
+                char power = smodeData[3];
+                char powerLRBalance = smodeData[4];
+                char PowerPIndex = smodeData[5];
+                char hrcc = smodeData[6];
+                char usEuroUnit = smodeData[7];
+                char airPressure = smodeData[8];
+
+                if (hrcc == '1')
                 {
-                    if (rows < b)
+                    dataView.Rows[x].Cells[1].Value = filter[x][0];
+                }
+                else if (hrcc == '0')
+                {
+                    dataView.Rows[x].Cells[1].Value = 0;
+                }
+                if (speed == '1')
+                {
+                    dataView.Rows[x].Cells[2].Value = filter[x][1];
+                }
+                else if (speed == '0')
+                {
+                    dataView.Rows[x].Cells[2].Value = 0;
+                }
+                if (cadence == '1')
+                {
+                    dataView.Rows[x].Cells[3].Value = filter[x][2];
+                }
+                else if (cadence == '0')
+                {
+                    dataView.Rows[x].Cells[3].Value = 0;
+                }
+
+                if (altitude == '1')
+                {
+                    dataView.Rows[x].Cells[4].Value = filter[x][3];
+                }
+                else if (altitude == '0')
+                {
+                    dataView.Rows[x].Cells[4].Value = 0;
+                }
+                if (power == '1')
+                {
+                    dataView.Rows[x].Cells[5].Value = filter[x][4];
+                    //calculation of moving average
+                    int value = filter[x][4].Count();
+                    for (int a = 0; x < value; x++)
                     {
-
-                        data += line + "\r\n";
-                        MessageBox.Show(line.ToString(), "Message");
-                        string text = line;
-                        for (int i = 0; i < text.Length; i++)
+                        double movingAverage30 = 0;
+                        for (int j = 0; j < 30; j++)
                         {
-                            string[] array = text.Split(new char[] { '\t' });
-                            MessageBox.Show(array.ToString(), "Message");
-                            //dataView.Rows.Add(array);
-                            //dataView.Rows.Add(i);
-                            DateTime timer = DateTime.ParseExact(startTimeValue, "HH:mm:ss.FFF", CultureInfo.InvariantCulture);
-                            dataView.Rows[i].Cells[0].Value = finalDate + " | " + timer.AddSeconds(intervalTwo).TimeOfDay;
+                            int index = a + j;
+                            index %= value;
+                            movingAverage30 += Convert.ToDouble(filter[x][index]);
 
-                            char[] smodeData = smode.ToCharArray();
-                            char speed = smodeData[0];
-                            char cadence = smodeData[1];
-                            char altitude = smodeData[2];
-                            char power = smodeData[3];
-                            char powerLRBalance = smodeData[4];
-                            char PowerPIndex = smodeData[5];
-                            char hrcc = smodeData[6];
-                            char usEuroUnit = smodeData[7];
-                            char airPressure = smodeData[8];
-
-                            if (hrcc == '1')
-                            {
-                                dataView.Rows[i].Cells[1].Value = array[i][0];
-                            }
-                            else if (hrcc == '0')
-                            {
-                                dataView.Rows[i].Cells[1].Value = 0;
-                            }
-                            if (speed == '1')
-                            {
-                                dataView.Rows[i].Cells[2].Value = array[i][1];
-                            }
-                            else if (speed == '0')
-                            {
-                                dataView.Rows[i].Cells[2].Value = 0;
-                            }
-                            if (cadence == '1')
-                            {
-                                dataView.Rows[i].Cells[3].Value = array[i][2];
-                            }
-                            else if (cadence == '0')
-                            {
-                                dataView.Rows[i].Cells[3].Value = 0;
-                            }
-
-                            if (altitude == '1')
-                            {
-                                dataView.Rows[i].Cells[4].Value = array[i][3];
-                            }
-                            else if (altitude == '0')
-                            {
-                                dataView.Rows[i].Cells[4].Value = 0;
-                            }
-                            if (power == '1')
-                            {
-                                dataView.Rows[i].Cells[5].Value = array[i][4];
-                                //calculation of moving average
-                                //    int value = hrData[i][4].Count();
-                                //for (int x = 0; x < value; x++)
-                                //{
-                                //    double movingAverage30 = 0;
-                                //    for (int j = 0; j < 30; j++)
-                                //    {
-                                //        int index = x + j;
-                                //        index %= value;
-                                //        movingAverage30 += Convert.ToDouble(hrData[i][index]);
-
-                                //    }
-                                //    movingAverage30 /= 30;
-
-                                //    MessageBox.Show(movingAverage30.ToString());
-                                //    dgvMovingAverage.Rows.Add(movingAverage30);
-
-                                //    normalized power calculation
-
-                                //   TimeSpan time = timer.AddSeconds(intervalTwo).TimeOfDay;
-                                //    double timeParse = time.Hours * 60 + time.Minutes + time.Seconds / 60;
-                                //    double powerValue = Math.Pow(movingAverage30, 4);
-                                //    double np = Math.Sqrt(Math.Sqrt(timeParse * powerValue));
-                                //    dataView.Rows[i].Cells[9].Value = np;
-
-
-                                //}
-                            }
-
-                            else if (power == '0')
-                            {
-                                dataView.Rows[i].Cells[5].Value = 0;
-                            }
-                            if (powerLRBalance == '1')
-                            {
-                                dataView.Rows[i].Cells[6].Value = array[i][5];
-                                double value = Convert.ToDouble(array[i][5]); // calculation of PI and LRB
-                                double pi = value / 256;
-                                double lrb = value % 256;
-                                double rb = 100 - lrb;
-                                dataView.Rows[i].Cells[7].Value = Math.Round(pi, 0);
-                                dataView.Rows[i].Cells[8].Value = "L" + lrb + "- R" + rb;
-                            }
-                            else if (powerLRBalance == '0')
-                            {
-                                dataView.Rows[i].Cells[6].Value = 0;
-
-
-
-
-
-                            }
-                            if (speed == '1')
-                            {
-
-                                // cadence
-
-                                //arrayCadence[i] = int.Parse(hrData[i][2]);
-
-
-                                // average speed
-
-                                // speedTotal = speedTotal + int.Parse(hrData[i][1]);
-                                // averageSpeed = (speedTotal / count) * 0.1;
-                                // averageSpeedMiles = averageSpeed / 1.6;
-
-
-
-                                // maximum speed
-
-                                // arraySpeed[i] = int.Parse(hrData[i][1]);
-                            }
-                            else
-                            {
-                                averageSpeed = 0;
-                                averageSpeedMiles = 0;
-                                arraySpeed[i] = 0;
-
-                            }
-
-                            if (hrcc == '1')
-                            {
-                                // average heart rate
-                                //heartRateTotal = heartRateTotal + int.Parse(hrData[i][0]);
-                                // averageHeartRate = heartRateTotal / count;
-                                // maximum heart rate
-                                //arrayHeartRate[i] = int.Parse(hrData[i][0]);
-                            }
-                            else
-                            {
-                                //averageHeartRate = 0;
-                                //arrayHeartRate[i] = 0;
-                            }
-                            if (power == '1')
-                            {
-                                //average power
-                                //    powerTotal = powerTotal + int.Parse(hrData[i][4]);
-                                //averagePower = powerTotal / count;
-
-                                //maximum power
-                                //    arrayPower[i] = int.Parse(hrData[i][4]);
-                            }
-                            else
-                            {
-                                averagePower = 0;
-                                arrayPower[i] = 0;
-                            }
-                            if (altitude == '1')
-                            {
-                                //average altitude
-                                //    altitudeTotal = altitudeTotal + int.Parse(hrData[i][3]);
-                                //averageAltitude = altitudeTotal / count;
-                                //averageAltitudeMile = averageAltitude / 0.3048;
-                                //maximum altitude
-                                //    arrayAltitude[i] = int.Parse(hrData[i][3]);
-                            }
-                            else
-                            {
-                                //averageAltitude = 0;
-                                //averageAltitudeMile = 0;
-                                //arrayAltitude[i] = 0;
-                            }
                         }
-                    }
-                        richTextBox1.Text = a.ToString() + data;
-                        count = a.ToString().Count();
-                        // MessageBox.Show(count.ToString(), "Milyo");
+                        movingAverage30 /= 30;
+
+                        //MessageBox.Show(movingAverage30.ToString());
+                        //dgvMovingAverage.Rows.Add(movingAverage30);
+
+                        //    normalized power calculation
+
+                        TimeSpan time = timer.AddSeconds(intervalTwo).TimeOfDay;
+                        double timeParse = time.Hours * 60 + time.Minutes + time.Seconds / 60;
+                        double powerValue = Math.Pow(movingAverage30, 4);
+                        double np = Math.Sqrt(Math.Sqrt(timeParse * powerValue));
+                        //dataView.Rows[x].Cells[9].Value = np;
+
+
                     }
                 }
+
+                else if (power == '0')
+                {
+                    dataView.Rows[x].Cells[5].Value = 0;
+                }
+                if (powerLRBalance == '1')
+                {
+                    dataView.Rows[x].Cells[6].Value = filter[x][5];
+                    double value = Convert.ToDouble(filter[x][5]); // calculation of PI and LRB
+                    double pi = value / 256;
+                    double lrb = value % 256;
+                    double rb = 100 - lrb;
+                    dataView.Rows[x].Cells[7].Value = Math.Round(pi, 0);
+                    dataView.Rows[x].Cells[8].Value = "L" + lrb + "- R" + rb;
+                }
+                else if (powerLRBalance == '0')
+                {
+                    dataView.Rows[x].Cells[6].Value = 0;
+                }
+                if (speed == '1')
+                {
+
+                    // cadence
+
+                    arrayCadence[x] = int.Parse(filter[x][2]);
+
+
+                    // average speed
+
+                    speedTotal = speedTotal + int.Parse(filter[x][1]);
+                    averageSpeed = (speedTotal / count) * 0.1;
+                    averageSpeedMiles = averageSpeed / 1.6;
+
+
+
+                    // maximum speed
+
+                    arraySpeed[x] = int.Parse(filter[x][1]);
+                }
+                else
+                {
+                    averageSpeed = 0;
+                    averageSpeedMiles = 0;
+                    arraySpeed[6] = 0;
+
+                }
+
+                if (hrcc == '1')
+                {
+                    //average heart rate
+                    heartRateTotal = heartRateTotal + int.Parse(filter[x][0]);
+                    averageHeartRate = heartRateTotal / count;
+                    // maximum heart rate
+                    arrayHeartRate[x] = int.Parse(filter[x][0]);
+                }
+                else
+                {
+                    averageHeartRate = 0;
+                    arrayHeartRate[x] = 0;
+                }
+                if (power == '1')
+                {
+                    //average power
+                    powerTotal = powerTotal + int.Parse(filter[x][4]);
+                    averagePower = powerTotal / count;
+
+                    //maximum power
+                    arrayPower[x] = int.Parse(filter[x][4]);
+                }
+                else
+                {
+                    averagePower = 0;
+                    arrayPower[6] = 0;
+                }
+                if (altitude == '1')
+                {
+                    //average altitude
+                    altitudeTotal = altitudeTotal + int.Parse(filter[x][3]);
+                    averageAltitude = altitudeTotal / count;
+                    averageAltitudeMile = averageAltitude / 0.3048;
+                    //maximum altitude
+                    arrayAltitude[x] = int.Parse(filter[x][3]);
+                }
+                else
+                {
+                    averageAltitude = 0;
+                    averageAltitudeMile = 0;
+                    arrayAltitude[x] = 0;
+                }
             }
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
+
+            maxSpeed = arraySpeed.Max() * 0.1;
+            maxSpeedMiles = (maxSpeed) / 1.6;
+
+            //maximum heart rate
+            maxHeartRate = arrayHeartRate.Max();
+
+            //minium heart rate
+            minHeartRate = double.MaxValue;
+
+            foreach(double valueHR in arrayHeartRate)
+            {
+                double num = valueHR;
+                if (num < minHeartRate)
+                {
+                    minHeartRate = num;
+                }
+            }
+
+            //max power
+            maxPower = arrayPower.Max();
+            maxAltitude = arrayAltitude.Max();
+            maxAltitudeMile = maxAltitudeMile / 0.3048;
+
+            //total distance covered
+            //if(arrayLengths != null)
+            //{
+            //    arrayLengths = lengthValue.Split(':');
+            //    double hourDis = double.Parse(arrayLengths[0]) * 3600;
+            //    double minDis = double.Parse(arrayLengths[1]) * 60;
+            //    double secDis = double.Parse(arrayLengths[2]);
+
+            //    double length = hourDis + minDis + secDis;
+            //    double finalLength = length / 3600;
+            //    double totalDisPro = averageSpeed * finalLength;
+            //    double totalDisProMiles = (totalDisPro) / 1.6;
+            //    totalDistance = Math.Round(totalDisPro, 2);
+            //    totalDisProMiles = Math.Round(totalDisProMiles, 2);
+            //}
+
+            graphHeartRate = arrayHeartRate;
+            graphSpeed = arrayHeartRate;
+            graphPower = arrayPower;
+            graphAltitude = arrayAltitude;
+            graphCadence = arrayCadence;
         }
 
-        private void btnGraph_Click(object sender, EventArgs e)
+        private void SummaryCalculation()
         {
-            graphImage gi = new graphImage();
-            gi.Show();
-            gi.graphDataView.AllowUserToAddRows = false;
-            gi.graphDataView.ColumnCount = 6;
-            gi.graphDataView.Columns[0].Name = "Heart Rates";
-            gi.graphDataView.Columns[1].Name = "Speed";
-            gi.graphDataView.Columns[2].Name = "Cadence";
-            gi.graphDataView.Columns[3].Name = "Altitude";
-            gi.graphDataView.Columns[4].Name = "Power";
-            gi.graphDataView.Columns[5].Name = "Power Balance and Pedaling Index";
-            foreach (DataGridViewRow row in dataView.Rows)
-            {
-                
-                int n = gi.graphDataView.Rows.Add();
+            #region Filling up the summary data
+            //fetching all speed column data into array
+            double[] coloumnDataofSpeed = (from DataGridViewRow row in dataView.Rows
+                                           where row.Cells["speeds"].FormattedValue.ToString() != string.Empty
+                                           select Convert.ToDouble(row.Cells["speeds"].FormattedValue)).ToArray();
+            //fetching all heart rate column data into array
+            double[] coloumnDataofHeartRate = (from DataGridViewRow row in dataView.Rows
+                                           where row.Cells["heart_rate"].FormattedValue.ToString() != string.Empty
+                                           select Convert.ToDouble(row.Cells["heart_rate"].FormattedValue)).ToArray();
+            //fetching all power column data into array
+            double[] coloumnDataofPower = (from DataGridViewRow row in dataView.Rows
+                                           where row.Cells["Power_watt"].FormattedValue.ToString() != string.Empty
+                                           select Convert.ToDouble(row.Cells["Power_watt"].FormattedValue)).ToArray();
+            //fetching all altitude column data into array
+            double[] coloumnDataofAltitude = (from DataGridViewRow row in dataView.Rows
+                                           where row.Cells["altitude"].FormattedValue.ToString() != string.Empty
+                                           select Convert.ToDouble(row.Cells["altitude"].FormattedValue)).ToArray();
+            //for speed
+            lblMaxSpeed.Text = "Maximum Speed: " + coloumnDataofSpeed.Max().ToString() + " " + "km/hr";
+            lblMinSpeed.Text = "Minimum Speed: " + coloumnDataofSpeed.Min().ToString() + " " + "km/hr";
 
-                gi.graphDataView.Rows[n].Cells[0].Value = row.Cells[0].Value;
-                gi.graphDataView.Rows[n].Cells[1].Value = row.Cells[1].Value;
-                gi.graphDataView.Rows[n].Cells[2].Value = row.Cells[2].Value;
-                gi.graphDataView.Rows[n].Cells[3].Value = row.Cells[3].Value;
-                gi.graphDataView.Rows[n].Cells[4].Value = row.Cells[4].Value;
-                gi.graphDataView.Rows[n].Cells[5].Value = row.Cells[5].Value;
-            }
+            double averageSpeed = coloumnDataofSpeed.Average();
+            lblAvgSpeed.Text = "Average Speed: " + Math.Round(averageSpeed, 3).ToString() + " " + "km/hr";
+
+            //for heart rate
+            lblMaxHeartRate.Text = "Maximum Heart Rate: " + coloumnDataofHeartRate.Max().ToString() + " " + "bpm";
+            lblMinHeartRate.Text = "Minimum Heart Rate: " + coloumnDataofHeartRate.Min().ToString() + " " + "bpm";
+
+            double averageHeartRate = coloumnDataofSpeed.Average();
+            lblAvgHeartRate.Text = "Average Heart Rate: " + Math.Round(averageHeartRate, 3).ToString() + " " + "bpm";
+
+            //for power
+            lblMaxPower.Text = "Maximum Power: " + coloumnDataofPower.Max().ToString() + " " + "watts";
+            lblMinPower.Text = "Minimum Power: " + coloumnDataofPower.Min().ToString() + " " + "watts";
+
+            double averagePower = coloumnDataofPower.Average();
+            lblAvgPower.Text = "Average Power: " + Math.Round(averagePower, 3).ToString() + " " + "watts";
+
+            //for altitude
+            lblMaxAltitude.Text = "Maximum Altitude: " + coloumnDataofAltitude.Max().ToString() + " " + "meter";
+            lblMinAltitude.Text = "Minimum Altitude: " + coloumnDataofAltitude.Min().ToString() + " " + "meter";
+
+            double averageAltitude = coloumnDataofAltitude.Average();
+            lblAverageAltidude.Text = "Average Altitude: " + Math.Round(averageAltitude, 3).ToString() + " " + "meter";
+            #endregion
         }
     }
 }
