@@ -41,7 +41,7 @@ namespace DataAnalysisSoftware
         //string file, getfilename;
         string dateCalc;
         string[] fdata;
-        
+
         string fileData, filename;
         string lengthValue, startTimeValue, intervalValue;
         string dateStart = "11/14/2018";
@@ -60,10 +60,10 @@ namespace DataAnalysisSoftware
             string fileName = FileNameList.SelectedItem.ToString();
             string location = path;
 
-            foreach(string item in fdata)
+            foreach (string item in fdata)
             {
                 string data = item.Split('\\').Last();
-                if(data == fileName)
+                if (data == fileName)
                 {
                     fileReading(item);
                     SummaryCalculation();
@@ -75,54 +75,45 @@ namespace DataAnalysisSoftware
 
         private void monthlyCalender_DateChanged(object sender, DateRangeEventArgs e)
         {
-            FileNameList.Items.Clear();
-            FileNameList.Items.Add(monthlyCalender.SelectionStart.ToString());
-            dateCalc = monthlyCalender.SelectionStart.ToString();
+            //FileNameList.Items.Clear();
+            //FileNameList.Items.Add(monthlyCalender.SelectionStart.ToString());
+            //dateCalc = monthlyCalender.SelectionStart.ToString();
 
-            // file value start 
-
-
-
-            foreach (string itemData in fdata)
-            {
+            //// file value start 
 
 
 
-                string value = itemData;
+            //foreach (string itemData in fdata)
+            //{
+            //    string value = itemData;
 
 
-                StreamReader fileReaderFolder = new StreamReader(value);
+            //    StreamReader fileReaderFolder = new StreamReader(value);
 
 
-                while (!fileReaderFolder.EndOfStream)
-                {
-                    fileData = fileReaderFolder.ReadLine();
-                    if (fileData.Contains("Date"))
-                    {
-                        string startTime = fileData;
-                        string arraStartTime = startTime.Split('=').Last();
-                        string one = "";
-                        //var date = "11252017";
-                        var date = DateTime.ParseExact(arraStartTime, "yyyyMMdd", CultureInfo.InvariantCulture);
+            //    while (!fileReaderFolder.EndOfStream)
+            //    {
+            //        fileData = fileReaderFolder.ReadLine();
+            //        if (fileData.Contains("Date"))
+            //        {
+            //            string startTime = fileData;
+            //            string arraStartTime = startTime.Split('=').Last();
+            //            string one = "";
+            //            //var date = "11252017";
+            //            var date = DateTime.ParseExact(arraStartTime, "yyyyMMdd", CultureInfo.InvariantCulture);
 
-                        if (date == DateTime.Parse(dateCalc))
-                        {
-                            FileNameList.ClearSelected();
-                            FileNameList.Items.Add(itemData.Split('\\').Last());
+            //            if (date == DateTime.Parse(dateCalc))
+            //            {
+            //                FileNameList.ClearSelected();
+            //                FileNameList.Items.Add(itemData.Split('\\').Last());
 
-                            path = itemData;
+            //                path = itemData;
 
-                            FileNameList.Update();
-                            //MessageBox.Show(one); 
-                        }
-
-                        //cldFolderView.AddBoldedDate(date);
-                        //cldFolderView.UpdateBoldedDates();
-
-                        //cldFolderView.SelectionStart = DateTime.Parse(startValue);
-                    }
-                }
-            }
+            //                FileNameList.Update();
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
@@ -132,92 +123,47 @@ namespace DataAnalysisSoftware
             FolderBrowserDialog folder = new FolderBrowserDialog();
             if (folder.ShowDialog() == DialogResult.OK)
             {
-                //string data = "";
-                //int rows = 0;
-                //int a = 0;
-                //int b = 0;
                 fdata = Directory.GetFiles(folder.SelectedPath);
-                DateTime timeValue;
+                //DateTime timeValue;
                 string valueTwo = fdata[0];
                 StreamReader streamReader = new StreamReader(valueTwo);
 
-                while (!streamReader.EndOfStream)
-                {
-                    fileData = streamReader.ReadLine();
-                    if (fileData.Contains("Date"))
-                    {
-                        string startTime = fileData;
-                        string arraStartTime = startTime.Split('=').Last();
-                        var dt = DateTime.ParseExact(arraStartTime, "yyyyMMdd", CultureInfo.InvariantCulture);
-                        dateStart = dt.ToString();
-                    }
-                }
-
-                foreach(string itemData in fdata)
+                foreach (string itemData in fdata)
                 {
                     string value = itemData;
 
-                    StreamReader fileReader = new StreamReader(value);
-                    while (!fileReader.EndOfStream)
+
+                    StreamReader fileReaderFolder = new StreamReader(value);
+
+
+                    while (!fileReaderFolder.EndOfStream)
                     {
-                        fileData = fileReader.ReadLine();
-                        if (fileData.Contains("Date"))
+                        fileData = fileReaderFolder.ReadLine();
+                        if (fileData.Contains("[HRData]"))
                         {
-                            string startTime = fileData;
-                            string arraStartTime = startTime.Split('=').Last();
-                            var date = DateTime.ParseExact(arraStartTime, "yyyyMMdd", CultureInfo.InvariantCulture);
+                                FileNameList.ClearSelected();
+                                FileNameList.Items.Add(itemData.Split('\\').Last());
 
-                            timeValue = date;
+                                path = itemData;
 
-                            monthlyCalender.AddBoldedDate(date);
-                            monthlyCalender.UpdateBoldedDates();
-
-                            monthlyCalender.SelectionStart = DateTime.Parse(dateStart);
+                                FileNameList.Update();
                         }
                     }
                 }
-                //dataView.AllowUserToAddRows = false;
-                //dataView.ColumnCount = 9;
-                //dataView.Columns[0].Name = "Heart Rates";
-                //dataView.Columns[1].Name = "Speed";
-                //dataView.Columns[2].Name = "Cadence";
-                //dataView.Columns[3].Name = "Altitude";
-                //dataView.Columns[4].Name = "Power";
-                //dataView.Columns[5].Name = "Power Balance and Pedaling Index";
-                //dataView.Columns[6].Name = "Power x";
-                //dataView.Columns[7].Name = "Power Balx";
-                //dataView.Columns[8].Name = "Power Baing Index";
-
-                //if (rows != 0)
-                //{
-                //    foreach (string line in filelines)
-                //    {
-                //        if (rows < b)
-                //        {
-                //            data += line + "\r\n";
-                //            //MessageBox.Show(data, "Messagae");
-                //            string text = line;
-                //            // string[] text = line.Split('\t');
-                //            try
-                //            {
-                //                for (int x = 0; x < text.Length; x++)
-                //                {
-                //                    string[] array = text.Split(new char[] { '\t' });
-                //                    dataView.Rows.Add(array);
-                //                    fileReading(data);
-                //                }
-                //            }
-                //            catch (Exception)
-                //            {
-                //                MessageBox.Show("Error occured.", "Error");
-                //            }
-                //        }
-                //        else b++;
-                //    }
-                //}
-                //richTextBox1.Text = data;
             }
         }
+
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            About ab = new About();
+            ab.Show();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -227,33 +173,13 @@ namespace DataAnalysisSoftware
         {
             graphImage gi = new graphImage();
             gi.Show();
-            //gi.graphDataView.AllowUserToAddRows = false;
-            //gi.graphDataView.ColumnCount = 6;
-            //gi.graphDataView.Columns[0].Name = "Heart Rates";
-            //gi.graphDataView.Columns[1].Name = "Speed";
-            //gi.graphDataView.Columns[2].Name = "Cadence";
-            //gi.graphDataView.Columns[3].Name = "Altitude";
-            //gi.graphDataView.Columns[4].Name = "Power";
-            //gi.graphDataView.Columns[5].Name = "Power Balance and Pedaling Index";
-            //foreach (DataGridViewRow row in dataView.Rows)
-            //{
-
-            //    int n = gi.graphDataView.Rows.Add();
-
-            //    gi.graphDataView.Rows[n].Cells[0].Value = row.Cells[0].Value;
-            //    gi.graphDataView.Rows[n].Cells[1].Value = row.Cells[1].Value;
-            //    gi.graphDataView.Rows[n].Cells[2].Value = row.Cells[2].Value;
-            //    gi.graphDataView.Rows[n].Cells[3].Value = row.Cells[3].Value;
-            //    gi.graphDataView.Rows[n].Cells[4].Value = row.Cells[4].Value;
-            //    gi.graphDataView.Rows[n].Cells[5].Value = row.Cells[5].Value;
-            //}
         }
 
         public void fileReading(String data)
         {
-            
+
             StreamReader streamReader = new StreamReader(data);
-            
+
             // richTextBox1.Text = a + "\r\n";
             while (!streamReader.EndOfStream)
             {
@@ -395,6 +321,52 @@ namespace DataAnalysisSoftware
                         smode = itemSmode;
                         lblSmode.Text = "Smode: " + smode;
                     }
+                    char[] sm = smode.ToCharArray();
+                    if (sm[0] == '1')
+                    {
+                        lblSpeed.Text = "Speed : ON "; 
+                    }
+                    else lblSpeed.Text = "Speed : OFF ";
+                    if (sm[1] == '1')
+                    {
+                        lblCandence.Text = "Cadence : ON";
+                    }
+                    else lblCandence.Text = "Cadence : OFF";
+                    if (sm[2] == '1')
+                    {
+                        lblAltitude.Text = "Altitude : ON ";
+                    }
+                    else lblAltitude.Text = "Altitude : OFF ";
+                    if (sm[3] == '1')
+                    {
+                        lblPower.Text = "Power : ON";
+                    }
+                    else lblPower.Text = "Power : OFF";
+                    if (sm[4] == '1')
+                    {
+                        lblPowerLR.Text = "Power Balance : ON ";
+                    }
+                    else lblPowerLR.Text = "Power Balance : OFF ";
+                    if (sm[5] == '1')
+                    {
+                        lblPowerPedal.Text = "Power Index : ON";
+                    }
+                    else lblPowerPedal.Text = "Power Index : OFF";
+                    if (sm[6] == '1')
+                    {
+                        lblHR.Text = "HR data only";
+                    }
+                    else lblHR.Text = "HR + cycling data";
+                    if (sm[7] == '1')
+                    {
+                        lblUS.Text = "Euro (km/h)";
+                    }
+                    else lblUS.Text = "US (mph)";
+                    if (sm[8] == '1')
+                    {
+                        lblAir.Text = "Air Pressure : ON";
+                    }
+                    else lblAir.Text = "Air Pressure : OFF";
                 }
             }
 
@@ -511,6 +483,7 @@ namespace DataAnalysisSoftware
                 {
                     dataView.Rows[x].Cells[5].Value = 0;
                 }
+                /*
                 if (powerLRBalance == '1')
                 {
                     dataView.Rows[x].Cells[6].Value = filter[x][5];
@@ -525,6 +498,7 @@ namespace DataAnalysisSoftware
                 {
                     dataView.Rows[x].Cells[6].Value = 0;
                 }
+                */
                 if (speed == '1')
                 {
 
@@ -606,7 +580,7 @@ namespace DataAnalysisSoftware
             //minium heart rate
             minHeartRate = double.MaxValue;
 
-            foreach(double valueHR in arrayHeartRate)
+            foreach (double valueHR in arrayHeartRate)
             {
                 double num = valueHR;
                 if (num < minHeartRate)
@@ -619,22 +593,7 @@ namespace DataAnalysisSoftware
             maxPower = arrayPower.Max();
             maxAltitude = arrayAltitude.Max();
             maxAltitudeMile = maxAltitudeMile / 0.3048;
-
-            //total distance covered
-            //if(arrayLengths != null)
-            //{
-            //    arrayLengths = lengthValue.Split(':');
-            //    double hourDis = double.Parse(arrayLengths[0]) * 3600;
-            //    double minDis = double.Parse(arrayLengths[1]) * 60;
-            //    double secDis = double.Parse(arrayLengths[2]);
-
-            //    double length = hourDis + minDis + secDis;
-            //    double finalLength = length / 3600;
-            //    double totalDisPro = averageSpeed * finalLength;
-            //    double totalDisProMiles = (totalDisPro) / 1.6;
-            //    totalDistance = Math.Round(totalDisPro, 2);
-            //    totalDisProMiles = Math.Round(totalDisProMiles, 2);
-            //}
+            
 
             graphHeartRate = arrayHeartRate;
             graphSpeed = arrayHeartRate;
@@ -652,16 +611,16 @@ namespace DataAnalysisSoftware
                                            select Convert.ToDouble(row.Cells["speeds"].FormattedValue)).ToArray();
             //fetching all heart rate column data into array
             double[] coloumnDataofHeartRate = (from DataGridViewRow row in dataView.Rows
-                                           where row.Cells["heart_rate"].FormattedValue.ToString() != string.Empty
-                                           select Convert.ToDouble(row.Cells["heart_rate"].FormattedValue)).ToArray();
+                                               where row.Cells["heart_rate"].FormattedValue.ToString() != string.Empty
+                                               select Convert.ToDouble(row.Cells["heart_rate"].FormattedValue)).ToArray();
             //fetching all power column data into array
             double[] coloumnDataofPower = (from DataGridViewRow row in dataView.Rows
                                            where row.Cells["Power_watt"].FormattedValue.ToString() != string.Empty
                                            select Convert.ToDouble(row.Cells["Power_watt"].FormattedValue)).ToArray();
             //fetching all altitude column data into array
             double[] coloumnDataofAltitude = (from DataGridViewRow row in dataView.Rows
-                                           where row.Cells["altitude"].FormattedValue.ToString() != string.Empty
-                                           select Convert.ToDouble(row.Cells["altitude"].FormattedValue)).ToArray();
+                                              where row.Cells["altitude"].FormattedValue.ToString() != string.Empty
+                                              select Convert.ToDouble(row.Cells["altitude"].FormattedValue)).ToArray();
             //for speed
             lblMaxSpeed.Text = "Maximum Speed: " + coloumnDataofSpeed.Max().ToString() + " " + "km/hr";
             lblMinSpeed.Text = "Minimum Speed: " + coloumnDataofSpeed.Min().ToString() + " " + "km/hr";

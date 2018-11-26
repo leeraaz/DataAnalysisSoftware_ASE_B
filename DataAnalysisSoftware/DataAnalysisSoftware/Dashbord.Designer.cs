@@ -32,11 +32,22 @@
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openFiles = new System.Windows.Forms.OpenFileDialog();
             this.dataView = new System.Windows.Forms.DataGridView();
+            this.time_interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.heart_rate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.speeds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cadences = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.altitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Power_watt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnGraph = new System.Windows.Forms.Button();
             this.groupHeading = new System.Windows.Forms.GroupBox();
             this.lblInterval = new System.Windows.Forms.Label();
@@ -59,22 +70,24 @@
             this.lblAvgHeartRate = new System.Windows.Forms.Label();
             this.lblMinHeartRate = new System.Windows.Forms.Label();
             this.lblMaxHeartRate = new System.Windows.Forms.Label();
-            this.monthlyCalender = new System.Windows.Forms.MonthCalendar();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.FileNameList = new System.Windows.Forms.ListBox();
-            this.time_interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.heart_rate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.speeds = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cadences = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.altitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Power_watt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.power_balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pedalling_index = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.left_right_balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblUS = new System.Windows.Forms.Label();
+            this.lblHR = new System.Windows.Forms.Label();
+            this.lblSpeed = new System.Windows.Forms.Label();
+            this.lblPowerPedal = new System.Windows.Forms.Label();
+            this.lblAltitude = new System.Windows.Forms.Label();
+            this.lblPowerLR = new System.Windows.Forms.Label();
+            this.lblCandence = new System.Windows.Forms.Label();
+            this.lblPower = new System.Windows.Forms.Label();
+            this.lblAir = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataView)).BeginInit();
             this.groupHeading.SuspendLayout();
             this.gropSumData.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLoad
@@ -89,7 +102,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(601, 27);
+            this.btnCancel.Location = new System.Drawing.Point(852, 27);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -100,13 +113,50 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.fileToolStripMenuItem1,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(932, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(965, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem1
+            // 
+            this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem1.Text = "File";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem2});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem2
+            // 
+            this.aboutToolStripMenuItem2.Name = "aboutToolStripMenuItem2";
+            this.aboutToolStripMenuItem2.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem2.Text = "About";
+            this.aboutToolStripMenuItem2.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
             // fileToolStripMenuItem
             // 
@@ -117,8 +167,8 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.aboutToolStripMenuItem.Text = "Help";
             // 
             // contextMenuStrip1
             // 
@@ -134,14 +184,41 @@
             this.speeds,
             this.cadences,
             this.altitude,
-            this.Power_watt,
-            this.power_balance,
-            this.pedalling_index,
-            this.left_right_balance});
+            this.Power_watt});
             this.dataView.Location = new System.Drawing.Point(12, 236);
             this.dataView.Name = "dataView";
-            this.dataView.Size = new System.Drawing.Size(664, 381);
+            this.dataView.Size = new System.Drawing.Size(719, 381);
             this.dataView.TabIndex = 5;
+            // 
+            // time_interval
+            // 
+            this.time_interval.HeaderText = "Time Interval";
+            this.time_interval.Name = "time_interval";
+            // 
+            // heart_rate
+            // 
+            this.heart_rate.HeaderText = "Heart Rate";
+            this.heart_rate.Name = "heart_rate";
+            // 
+            // speeds
+            // 
+            this.speeds.HeaderText = "Speed";
+            this.speeds.Name = "speeds";
+            // 
+            // cadences
+            // 
+            this.cadences.HeaderText = "Cadence";
+            this.cadences.Name = "cadences";
+            // 
+            // altitude
+            // 
+            this.altitude.HeaderText = "Altitude";
+            this.altitude.Name = "altitude";
+            // 
+            // Power_watt
+            // 
+            this.Power_watt.HeaderText = "Power(Watts)";
+            this.Power_watt.Name = "Power_watt";
             // 
             // btnGraph
             // 
@@ -162,9 +239,9 @@
             this.groupHeading.Controls.Add(this.lblDate);
             this.groupHeading.Controls.Add(this.lblMonitor);
             this.groupHeading.Controls.Add(this.lblLength);
-            this.groupHeading.Location = new System.Drawing.Point(684, 68);
+            this.groupHeading.Location = new System.Drawing.Point(541, 68);
             this.groupHeading.Name = "groupHeading";
-            this.groupHeading.Size = new System.Drawing.Size(198, 162);
+            this.groupHeading.Size = new System.Drawing.Size(190, 162);
             this.groupHeading.TabIndex = 7;
             this.groupHeading.TabStop = false;
             this.groupHeading.Text = "Header";
@@ -246,9 +323,9 @@
             this.gropSumData.Controls.Add(this.lblAvgHeartRate);
             this.gropSumData.Controls.Add(this.lblMinHeartRate);
             this.gropSumData.Controls.Add(this.lblMaxHeartRate);
-            this.gropSumData.Location = new System.Drawing.Point(682, 236);
+            this.gropSumData.Location = new System.Drawing.Point(737, 283);
             this.gropSumData.Name = "gropSumData";
-            this.gropSumData.Size = new System.Drawing.Size(200, 381);
+            this.gropSumData.Size = new System.Drawing.Size(219, 334);
             this.gropSumData.TabIndex = 8;
             this.gropSumData.TabStop = false;
             this.gropSumData.Text = "Sumary Data";
@@ -256,7 +333,7 @@
             // lblAverageAltidude
             // 
             this.lblAverageAltidude.AutoSize = true;
-            this.lblAverageAltidude.Location = new System.Drawing.Point(6, 297);
+            this.lblAverageAltidude.Location = new System.Drawing.Point(10, 309);
             this.lblAverageAltidude.Name = "lblAverageAltidude";
             this.lblAverageAltidude.Size = new System.Drawing.Size(85, 13);
             this.lblAverageAltidude.TabIndex = 12;
@@ -265,7 +342,7 @@
             // lblMinAltitude
             // 
             this.lblMinAltitude.AutoSize = true;
-            this.lblMinAltitude.Location = new System.Drawing.Point(6, 275);
+            this.lblMinAltitude.Location = new System.Drawing.Point(10, 286);
             this.lblMinAltitude.Name = "lblMinAltitude";
             this.lblMinAltitude.Size = new System.Drawing.Size(86, 13);
             this.lblMinAltitude.TabIndex = 11;
@@ -274,7 +351,7 @@
             // lblMaxAltitude
             // 
             this.lblMaxAltitude.AutoSize = true;
-            this.lblMaxAltitude.Location = new System.Drawing.Point(6, 257);
+            this.lblMaxAltitude.Location = new System.Drawing.Point(10, 262);
             this.lblMaxAltitude.Name = "lblMaxAltitude";
             this.lblMaxAltitude.Size = new System.Drawing.Size(89, 13);
             this.lblMaxAltitude.TabIndex = 10;
@@ -283,7 +360,7 @@
             // lblAvgPower
             // 
             this.lblAvgPower.AutoSize = true;
-            this.lblAvgPower.Location = new System.Drawing.Point(6, 233);
+            this.lblAvgPower.Location = new System.Drawing.Point(10, 236);
             this.lblAvgPower.Name = "lblAvgPower";
             this.lblAvgPower.Size = new System.Drawing.Size(80, 13);
             this.lblAvgPower.TabIndex = 9;
@@ -292,7 +369,7 @@
             // lblMinPower
             // 
             this.lblMinPower.AutoSize = true;
-            this.lblMinPower.Location = new System.Drawing.Point(6, 207);
+            this.lblMinPower.Location = new System.Drawing.Point(10, 211);
             this.lblMinPower.Name = "lblMinPower";
             this.lblMinPower.Size = new System.Drawing.Size(81, 13);
             this.lblMinPower.TabIndex = 8;
@@ -301,7 +378,7 @@
             // lblMaxPower
             // 
             this.lblMaxPower.AutoSize = true;
-            this.lblMaxPower.Location = new System.Drawing.Point(6, 183);
+            this.lblMaxPower.Location = new System.Drawing.Point(10, 184);
             this.lblMaxPower.Name = "lblMaxPower";
             this.lblMaxPower.Size = new System.Drawing.Size(84, 13);
             this.lblMaxPower.TabIndex = 7;
@@ -310,7 +387,7 @@
             // lblAvgSpeed
             // 
             this.lblAvgSpeed.AutoSize = true;
-            this.lblAvgSpeed.Location = new System.Drawing.Point(6, 151);
+            this.lblAvgSpeed.Location = new System.Drawing.Point(10, 158);
             this.lblAvgSpeed.Name = "lblAvgSpeed";
             this.lblAvgSpeed.Size = new System.Drawing.Size(81, 13);
             this.lblAvgSpeed.TabIndex = 6;
@@ -319,7 +396,7 @@
             // lblMinSpeed
             // 
             this.lblMinSpeed.AutoSize = true;
-            this.lblMinSpeed.Location = new System.Drawing.Point(6, 124);
+            this.lblMinSpeed.Location = new System.Drawing.Point(10, 130);
             this.lblMinSpeed.Name = "lblMinSpeed";
             this.lblMinSpeed.Size = new System.Drawing.Size(82, 13);
             this.lblMinSpeed.TabIndex = 5;
@@ -328,7 +405,7 @@
             // lblMaxSpeed
             // 
             this.lblMaxSpeed.AutoSize = true;
-            this.lblMaxSpeed.Location = new System.Drawing.Point(6, 95);
+            this.lblMaxSpeed.Location = new System.Drawing.Point(10, 103);
             this.lblMaxSpeed.Name = "lblMaxSpeed";
             this.lblMaxSpeed.Size = new System.Drawing.Size(85, 13);
             this.lblMaxSpeed.TabIndex = 4;
@@ -337,7 +414,7 @@
             // lblAvgHeartRate
             // 
             this.lblAvgHeartRate.AutoSize = true;
-            this.lblAvgHeartRate.Location = new System.Drawing.Point(6, 73);
+            this.lblAvgHeartRate.Location = new System.Drawing.Point(10, 76);
             this.lblAvgHeartRate.Name = "lblAvgHeartRate";
             this.lblAvgHeartRate.Size = new System.Drawing.Size(102, 13);
             this.lblAvgHeartRate.TabIndex = 3;
@@ -346,7 +423,7 @@
             // lblMinHeartRate
             // 
             this.lblMinHeartRate.AutoSize = true;
-            this.lblMinHeartRate.Location = new System.Drawing.Point(6, 47);
+            this.lblMinHeartRate.Location = new System.Drawing.Point(10, 49);
             this.lblMinHeartRate.Name = "lblMinHeartRate";
             this.lblMinHeartRate.Size = new System.Drawing.Size(103, 13);
             this.lblMinHeartRate.TabIndex = 2;
@@ -355,26 +432,21 @@
             // lblMaxHeartRate
             // 
             this.lblMaxHeartRate.AutoSize = true;
-            this.lblMaxHeartRate.Location = new System.Drawing.Point(6, 16);
+            this.lblMaxHeartRate.Location = new System.Drawing.Point(10, 25);
             this.lblMaxHeartRate.Name = "lblMaxHeartRate";
             this.lblMaxHeartRate.Size = new System.Drawing.Size(106, 13);
             this.lblMaxHeartRate.TabIndex = 1;
             this.lblMaxHeartRate.Text = "Maximum Heart Rate";
             // 
-            // monthlyCalender
-            // 
-            this.monthlyCalender.Location = new System.Drawing.Point(454, 68);
-            this.monthlyCalender.Name = "monthlyCalender";
-            this.monthlyCalender.TabIndex = 9;
-            this.monthlyCalender.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthlyCalender_DateChanged);
-            // 
             // richTextBox1
             // 
+            this.richTextBox1.Font = new System.Drawing.Font("Maiandra GD", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox1.Location = new System.Drawing.Point(138, 68);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(314, 162);
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(395, 160);
             this.richTextBox1.TabIndex = 10;
-            this.richTextBox1.Text = "";
+            this.richTextBox1.Text = "Polar Cycle  Computer\n\nData Analysis";
             // 
             // FileNameList
             // 
@@ -385,59 +457,118 @@
             this.FileNameList.TabIndex = 11;
             this.FileNameList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FileNameList_MouseClick);
             // 
-            // time_interval
+            // aboutToolStripMenuItem1
             // 
-            this.time_interval.HeaderText = "Time Interval";
-            this.time_interval.Name = "time_interval";
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem1.Text = "About";
+            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
-            // heart_rate
+            // groupBox1
             // 
-            this.heart_rate.HeaderText = "Heart Rate";
-            this.heart_rate.Name = "heart_rate";
+            this.groupBox1.Controls.Add(this.lblUS);
+            this.groupBox1.Controls.Add(this.lblAir);
+            this.groupBox1.Controls.Add(this.lblHR);
+            this.groupBox1.Controls.Add(this.lblSpeed);
+            this.groupBox1.Controls.Add(this.lblPowerPedal);
+            this.groupBox1.Controls.Add(this.lblAltitude);
+            this.groupBox1.Controls.Add(this.lblPowerLR);
+            this.groupBox1.Controls.Add(this.lblCandence);
+            this.groupBox1.Controls.Add(this.lblPower);
+            this.groupBox1.Location = new System.Drawing.Point(737, 72);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(219, 205);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Smode";
             // 
-            // speeds
+            // lblUS
             // 
-            this.speeds.HeaderText = "Speed";
-            this.speeds.Name = "speeds";
+            this.lblUS.Location = new System.Drawing.Point(13, 154);
+            this.lblUS.Name = "lblUS";
+            this.lblUS.Size = new System.Drawing.Size(83, 13);
+            this.lblUS.TabIndex = 0;
+            this.lblUS.Text = "US/Euro unit";
             // 
-            // cadences
+            // lblHR
             // 
-            this.cadences.HeaderText = "Cadence";
-            this.cadences.Name = "cadences";
+            this.lblHR.AutoSize = true;
+            this.lblHR.Location = new System.Drawing.Point(13, 133);
+            this.lblHR.Name = "lblHR";
+            this.lblHR.Size = new System.Drawing.Size(42, 13);
+            this.lblHR.TabIndex = 6;
+            this.lblHR.Text = "HR/CC";
             // 
-            // altitude
+            // lblSpeed
             // 
-            this.altitude.HeaderText = "Altitude";
-            this.altitude.Name = "altitude";
+            this.lblSpeed.AutoSize = true;
+            this.lblSpeed.Location = new System.Drawing.Point(13, 25);
+            this.lblSpeed.Name = "lblSpeed";
+            this.lblSpeed.Size = new System.Drawing.Size(38, 13);
+            this.lblSpeed.TabIndex = 0;
+            this.lblSpeed.Text = "Speed";
             // 
-            // Power_watt
+            // lblPowerPedal
             // 
-            this.Power_watt.HeaderText = "Power(Watts)";
-            this.Power_watt.Name = "Power_watt";
+            this.lblPowerPedal.AutoSize = true;
+            this.lblPowerPedal.Location = new System.Drawing.Point(13, 115);
+            this.lblPowerPedal.Name = "lblPowerPedal";
+            this.lblPowerPedal.Size = new System.Drawing.Size(112, 13);
+            this.lblPowerPedal.TabIndex = 5;
+            this.lblPowerPedal.Text = "Power Pedalling Index";
             // 
-            // power_balance
+            // lblAltitude
             // 
-            this.power_balance.HeaderText = "Power Balance";
-            this.power_balance.Name = "power_balance";
+            this.lblAltitude.AutoSize = true;
+            this.lblAltitude.Location = new System.Drawing.Point(13, 58);
+            this.lblAltitude.Name = "lblAltitude";
+            this.lblAltitude.Size = new System.Drawing.Size(42, 13);
+            this.lblAltitude.TabIndex = 2;
+            this.lblAltitude.Text = "Altitude";
             // 
-            // pedalling_index
+            // lblPowerLR
             // 
-            this.pedalling_index.HeaderText = "Pedalling Index";
-            this.pedalling_index.Name = "pedalling_index";
+            this.lblPowerLR.AutoSize = true;
+            this.lblPowerLR.Location = new System.Drawing.Point(13, 95);
+            this.lblPowerLR.Name = "lblPowerLR";
+            this.lblPowerLR.Size = new System.Drawing.Size(128, 13);
+            this.lblPowerLR.TabIndex = 4;
+            this.lblPowerLR.Text = "Power Left Right Balance";
             // 
-            // left_right_balance
+            // lblCandence
             // 
-            this.left_right_balance.HeaderText = "Left Right Balance";
-            this.left_right_balance.Name = "left_right_balance";
+            this.lblCandence.AutoSize = true;
+            this.lblCandence.Location = new System.Drawing.Point(13, 42);
+            this.lblCandence.Name = "lblCandence";
+            this.lblCandence.Size = new System.Drawing.Size(50, 13);
+            this.lblCandence.TabIndex = 1;
+            this.lblCandence.Text = "Cadence";
+            // 
+            // lblPower
+            // 
+            this.lblPower.AutoSize = true;
+            this.lblPower.Location = new System.Drawing.Point(13, 77);
+            this.lblPower.Name = "lblPower";
+            this.lblPower.Size = new System.Drawing.Size(37, 13);
+            this.lblPower.TabIndex = 3;
+            this.lblPower.Text = "Power";
+            // 
+            // lblAir
+            // 
+            this.lblAir.Location = new System.Drawing.Point(13, 178);
+            this.lblAir.Name = "lblAir";
+            this.lblAir.Size = new System.Drawing.Size(128, 13);
+            this.lblAir.TabIndex = 0;
+            this.lblAir.Text = "Air Pressure";
             // 
             // Dashbord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(932, 629);
+            this.ClientSize = new System.Drawing.Size(965, 629);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.FileNameList);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.monthlyCalender);
             this.Controls.Add(this.gropSumData);
             this.Controls.Add(this.groupHeading);
             this.Controls.Add(this.btnGraph);
@@ -447,7 +578,6 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Dashbord";
-            this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataView)).EndInit();
@@ -455,6 +585,8 @@
             this.groupHeading.PerformLayout();
             this.gropSumData.ResumeLayout(false);
             this.gropSumData.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -474,7 +606,6 @@
         private System.Windows.Forms.GroupBox groupHeading;
         private System.Windows.Forms.GroupBox gropSumData;
         private System.Windows.Forms.Label lblInterval;
-        private System.Windows.Forms.Label lblSmode;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblLength;
         private System.Windows.Forms.Label lblStartDate;
@@ -492,18 +623,31 @@
         private System.Windows.Forms.Label lblAvgHeartRate;
         private System.Windows.Forms.Label lblMinHeartRate;
         private System.Windows.Forms.Label lblMaxHeartRate;
-        private System.Windows.Forms.MonthCalendar monthlyCalender;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.ListBox FileNameList;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Label lblSmode;
         private System.Windows.Forms.DataGridViewTextBoxColumn time_interval;
         private System.Windows.Forms.DataGridViewTextBoxColumn heart_rate;
         private System.Windows.Forms.DataGridViewTextBoxColumn speeds;
         private System.Windows.Forms.DataGridViewTextBoxColumn cadences;
         private System.Windows.Forms.DataGridViewTextBoxColumn altitude;
         private System.Windows.Forms.DataGridViewTextBoxColumn Power_watt;
-        private System.Windows.Forms.DataGridViewTextBoxColumn power_balance;
-        private System.Windows.Forms.DataGridViewTextBoxColumn pedalling_index;
-        private System.Windows.Forms.DataGridViewTextBoxColumn left_right_balance;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lblUS;
+        private System.Windows.Forms.Label lblHR;
+        private System.Windows.Forms.Label lblSpeed;
+        private System.Windows.Forms.Label lblPowerPedal;
+        private System.Windows.Forms.Label lblAltitude;
+        private System.Windows.Forms.Label lblPowerLR;
+        private System.Windows.Forms.Label lblCandence;
+        private System.Windows.Forms.Label lblPower;
+        private System.Windows.Forms.Label lblAir;
     }
 }
 
