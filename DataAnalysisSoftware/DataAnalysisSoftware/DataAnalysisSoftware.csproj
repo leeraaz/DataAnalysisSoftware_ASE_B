@@ -76,6 +76,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dashbord.resx">
       <DependentUpon>Dashbord.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="graphImage.resx">
       <DependentUpon>graphImage.cs</DependentUpon>

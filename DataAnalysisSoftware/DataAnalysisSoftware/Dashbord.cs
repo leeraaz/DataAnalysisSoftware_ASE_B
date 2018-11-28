@@ -118,38 +118,43 @@ namespace DataAnalysisSoftware
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            //selection of file
-            //bool flag = this.openFiles.ShowDialog() != DialogResult.Cancel;
-            FolderBrowserDialog folder = new FolderBrowserDialog();
-            if (folder.ShowDialog() == DialogResult.OK)
+            try
             {
-                fdata = Directory.GetFiles(folder.SelectedPath);
-                //DateTime timeValue;
-                string valueTwo = fdata[0];
-                StreamReader streamReader = new StreamReader(valueTwo);
-
-                foreach (string itemData in fdata)
+                FolderBrowserDialog folder = new FolderBrowserDialog();
+                if (folder.ShowDialog() == DialogResult.OK)
                 {
-                    string value = itemData;
+                    fdata = Directory.GetFiles(folder.SelectedPath);
+                    //DateTime timeValue;
+                    string valueTwo = fdata[0];
+                    StreamReader streamReader = new StreamReader(valueTwo);
 
-
-                    StreamReader fileReaderFolder = new StreamReader(value);
-
-
-                    while (!fileReaderFolder.EndOfStream)
+                    foreach (string itemData in fdata)
                     {
-                        fileData = fileReaderFolder.ReadLine();
-                        if (fileData.Contains("[HRData]"))
+                        string value = itemData;
+
+
+                        StreamReader fileReaderFolder = new StreamReader(value);
+
+
+                        while (!fileReaderFolder.EndOfStream)
                         {
+                            fileData = fileReaderFolder.ReadLine();
+                            if (fileData.Contains("[HRData]"))
+                            {
                                 FileNameList.ClearSelected();
                                 FileNameList.Items.Add(itemData.Split('\\').Last());
 
                                 path = itemData;
 
                                 FileNameList.Update();
+                            }
                         }
                     }
                 }
+            }
+            catch(Exception msg)
+            {
+                MessageBox.Show("An error occured: " +msg.Message);
             }
         }
 
@@ -213,14 +218,20 @@ namespace DataAnalysisSoftware
                         weight = itemWeight;
                     }
                 }
-                if (fileData.Contains("Lenght"))
+                if (fileData.Contains("Length"))
                 {
                     string length = fileData;
                     string[] arrayLength = length.Split('=');
                     foreach (string itemLength in arrayLength)
                     {
-                        length = itemLength;
-                        lblLength.Text = "Length: " + lengthValue;
+                        lblLength.Text = "Length: " + itemLength;
+                        //int LengthHR = 0;
+                        //Int32.TryParse(itemLength, out LengthHR);
+                        //int LengthMin = 0;
+                        //Int32.TryParse(itemLength, out LengthMin);
+                        //double LengthSec = 0;
+                        //Double.TryParse(itemLength, out LengthSec);
+                        //lblLength.Text = "Length: " + LengthHR + ":" + LengthMin + ":" + LengthSec;
                     }
                 }
                 if (fileData.Contains("Interval"))
@@ -249,8 +260,32 @@ namespace DataAnalysisSoftware
                     string[] arrayMonitor = monitor.Split('=');
                     foreach (string itemMonitor in arrayMonitor)
                     {
-                        monitor = itemMonitor;
-                        lblMonitor.Text = "Monitor: " + itemMonitor;
+                        //monitor = itemMonitor;
+                        //lblMonitor.Text = "Monitor: " + itemMonitor;
+                        int Monitorval = 0;
+                        Int32.TryParse(itemMonitor, out Monitorval);
+                        if (Monitorval == 1) { lblMonitor.Text = "Model: " + "Polar Sport Tester / Vantage XL"; }
+                        if (Monitorval == 2) { lblMonitor.Text = "Model: " + "Polar Vantage NV (VNV)"; }
+                        if (Monitorval == 3) { lblMonitor.Text = "Model: " + "Polar Accurex Plus"; }
+                        if (Monitorval == 4) { lblMonitor.Text = "Model: " + "Polar XTrainer Plus"; }
+                        if (Monitorval == 6) { lblMonitor.Text = "Model: " + "Polar S520"; }
+                        if (Monitorval == 7) { lblMonitor.Text = "Model: " + "Polar Coach"; }
+                        if (Monitorval == 8) { lblMonitor.Text = "Model: " + "Polar S210"; }
+                        if (Monitorval == 9) { lblMonitor.Text = "Model: " + "Polar S410"; }
+                        if (Monitorval == 10) { lblMonitor.Text = "Model: " + "Polar S610 / S610i"; }
+                        if (Monitorval == 12) { lblMonitor.Text = "Model: " + "Polar S710 / S710i / S720i"; }
+                        if (Monitorval == 13) { lblMonitor.Text = "Model: " + "Polar S810 / S810i"; }
+                        if (Monitorval == 15) { lblMonitor.Text = "Model: " + "Polar E600"; }
+                        if (Monitorval == 20) { lblMonitor.Text = "Model: " + "Polar AXN500"; }
+                        if (Monitorval == 21) { lblMonitor.Text = "Model: " + "Polar AXN700"; }
+                        if (Monitorval == 22) { lblMonitor.Text = "Model: " + "Polar S625X / S725X"; }
+                        if (Monitorval == 23) { lblMonitor.Text = "Model: " + "Polar S725"; }
+                        if (Monitorval == 33) { lblMonitor.Text = "Model: " + "Polar CS400"; }
+                        if (Monitorval == 34) { lblMonitor.Text = "Model: " + "Polar CS600X"; }
+                        if (Monitorval == 35) { lblMonitor.Text = "Model: " + "Polar CS600"; }
+                        if (Monitorval == 36) { lblMonitor.Text = "Model: " + "Polar RS400"; }
+                        if (Monitorval == 37) { lblMonitor.Text = "Model: " + "Polar RS800"; }
+                        if (Monitorval == 38) { lblMonitor.Text = "Model: " + "Polar RS800X"; }
                     }
                 }
                 if (fileData.Contains("ActiveLimit"))
@@ -324,7 +359,7 @@ namespace DataAnalysisSoftware
                     char[] sm = smode.ToCharArray();
                     if (sm[0] == '1')
                     {
-                        lblSpeed.Text = "Speed : ON "; 
+                        lblSpeed.Text = "Speed : ON ";
                     }
                     else lblSpeed.Text = "Speed : OFF ";
                     if (sm[1] == '1')
@@ -401,7 +436,7 @@ namespace DataAnalysisSoftware
                 //dataView.Rows.Add(array);
                 dataView.Rows.Add();
                 DateTime timer = DateTime.ParseExact(startTimeValue, "HH:mm:ss.FFF", CultureInfo.InvariantCulture);
-                dataView.Rows[x].Cells[0].Value = finalDate + " | " + timer.AddSeconds(intervalTwo).TimeOfDay;
+                dataView.Rows[x].Cells[0].Value = timer.AddSeconds(intervalTwo).TimeOfDay;
 
                 char[] smodeData = smode.ToCharArray();
                 char speed = smodeData[0];
@@ -433,6 +468,7 @@ namespace DataAnalysisSoftware
                 if (cadence == '1')
                 {
                     dataView.Rows[x].Cells[3].Value = filter[x][2];
+                    arrayCadence[x] = int.Parse(filter[x][2]);
                 }
                 else if (cadence == '0')
                 {
@@ -463,68 +499,12 @@ namespace DataAnalysisSoftware
 
                         }
                         movingAverage30 /= 30;
-
-                        //MessageBox.Show(movingAverage30.ToString());
-                        //dgvMovingAverage.Rows.Add(movingAverage30);
-
-                        //    normalized power calculation
-
-                        TimeSpan time = timer.AddSeconds(intervalTwo).TimeOfDay;
-                        double timeParse = time.Hours * 60 + time.Minutes + time.Seconds / 60;
-                        double powerValue = Math.Pow(movingAverage30, 4);
-                        double np = Math.Sqrt(Math.Sqrt(timeParse * powerValue));
-                        //dataView.Rows[x].Cells[9].Value = np;
-
-
                     }
                 }
 
                 else if (power == '0')
                 {
                     dataView.Rows[x].Cells[5].Value = 0;
-                }
-                /*
-                if (powerLRBalance == '1')
-                {
-                    dataView.Rows[x].Cells[6].Value = filter[x][5];
-                    double value = Convert.ToDouble(filter[x][5]); // calculation of PI and LRB
-                    double pi = value / 256;
-                    double lrb = value % 256;
-                    double rb = 100 - lrb;
-                    dataView.Rows[x].Cells[7].Value = Math.Round(pi, 0);
-                    dataView.Rows[x].Cells[8].Value = "L" + lrb + "- R" + rb;
-                }
-                else if (powerLRBalance == '0')
-                {
-                    dataView.Rows[x].Cells[6].Value = 0;
-                }
-                */
-                if (speed == '1')
-                {
-
-                    // cadence
-
-                    arrayCadence[x] = int.Parse(filter[x][2]);
-
-
-                    // average speed
-
-                    speedTotal = speedTotal + int.Parse(filter[x][1]);
-                    averageSpeed = (speedTotal / count) * 0.1;
-                    averageSpeedMiles = averageSpeed / 1.6;
-
-
-
-                    // maximum speed
-
-                    arraySpeed[x] = int.Parse(filter[x][1]);
-                }
-                else
-                {
-                    averageSpeed = 0;
-                    averageSpeedMiles = 0;
-                    arraySpeed[6] = 0;
-
                 }
 
                 if (hrcc == '1')
@@ -540,66 +520,83 @@ namespace DataAnalysisSoftware
                     averageHeartRate = 0;
                     arrayHeartRate[x] = 0;
                 }
+
+                if (speed == '1')
+                {
+                    // average speed
+                    speedTotal = speedTotal + int.Parse(filter[x][1]);
+                    averageSpeed = (speedTotal / count) * 0.1;
+                    averageSpeedMiles = averageSpeed / 1.6;
+                    // maximum speed
+
+                    arraySpeed[x] = int.Parse(filter[x][1]);
+                }
+                else
+                {
+                    averageSpeed = 0;
+                    averageSpeedMiles = 0;
+                }
+
                 if (power == '1')
                 {
                     //average power
-                    powerTotal = powerTotal + int.Parse(filter[x][4]);
+                        powerTotal += Convert.ToInt32(filter[x][5]);
+                    //powerTotal = powerTotal + int.Parse(filter[x][5]);
                     averagePower = powerTotal / count;
 
                     //maximum power
-                    arrayPower[x] = int.Parse(filter[x][4]);
+                    arrayPower[x] = int.Parse(filter[x][5]);
                 }
                 else
                 {
                     averagePower = 0;
-                    arrayPower[6] = 0;
+                    arrayPower[5] = 0;
+                    if (altitude == '1')
+                    {
+                        //average altitude
+                        altitudeTotal = altitudeTotal + int.Parse(filter[x][3]);
+                        averageAltitude = altitudeTotal / count;
+                        averageAltitudeMile = averageAltitude / 0.3048;
+                        //maximum altitude
+                        arrayAltitude[x] = int.Parse(filter[x][3]);
+                    }
+                    else
+                    {
+                        averageAltitude = 0;
+                        averageAltitudeMile = 0;
+                        arrayAltitude[x] = 0;
+                    }
                 }
-                if (altitude == '1')
+
+                maxSpeed = arraySpeed.Max() * 0.1;
+                maxSpeedMiles = (maxSpeed) / 1.6;
+
+                //maximum heart rate
+                maxHeartRate = arrayHeartRate.Max();
+
+                //minium heart rate
+                minHeartRate = double.MaxValue;
+
+                foreach (double valueHR in arrayHeartRate)
                 {
-                    //average altitude
-                    altitudeTotal = altitudeTotal + int.Parse(filter[x][3]);
-                    averageAltitude = altitudeTotal / count;
-                    averageAltitudeMile = averageAltitude / 0.3048;
-                    //maximum altitude
-                    arrayAltitude[x] = int.Parse(filter[x][3]);
+                    double num = valueHR;
+                    if (num < minHeartRate)
+                    {
+                        minHeartRate = num;
+                    }
                 }
-                else
-                {
-                    averageAltitude = 0;
-                    averageAltitudeMile = 0;
-                    arrayAltitude[x] = 0;
-                }
+
+                //max power
+                maxPower = arrayPower.Max();
+                maxAltitude = arrayAltitude.Max();
+                maxAltitudeMile = maxAltitudeMile / 0.3048;
+
+                graphHeartRate = arrayHeartRate;
+                graphSpeed = arrayHeartRate;
+                graphPower = arrayPower;
+                graphAltitude = arrayAltitude;
+                graphCadence = arrayCadence;
             }
-
-            maxSpeed = arraySpeed.Max() * 0.1;
-            maxSpeedMiles = (maxSpeed) / 1.6;
-
-            //maximum heart rate
-            maxHeartRate = arrayHeartRate.Max();
-
-            //minium heart rate
-            minHeartRate = double.MaxValue;
-
-            foreach (double valueHR in arrayHeartRate)
-            {
-                double num = valueHR;
-                if (num < minHeartRate)
-                {
-                    minHeartRate = num;
-                }
-            }
-
-            //max power
-            maxPower = arrayPower.Max();
-            maxAltitude = arrayAltitude.Max();
-            maxAltitudeMile = maxAltitudeMile / 0.3048;
-            
-
-            graphHeartRate = arrayHeartRate;
-            graphSpeed = arrayHeartRate;
-            graphPower = arrayPower;
-            graphAltitude = arrayAltitude;
-            graphCadence = arrayCadence;
         }
 
         private void SummaryCalculation()

@@ -74,6 +74,7 @@
             this.lblCombo.Size = new System.Drawing.Size(121, 21);
             this.lblCombo.TabIndex = 10;
             this.lblCombo.Text = "None";
+            this.lblCombo.SelectedIndexChanged += new System.EventHandler(this.lblCombo_SelectedIndexChanged);
             // 
             // graphImage
             // 

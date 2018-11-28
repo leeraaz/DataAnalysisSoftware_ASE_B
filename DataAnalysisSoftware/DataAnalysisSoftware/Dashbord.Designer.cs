@@ -42,12 +42,6 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openFiles = new System.Windows.Forms.OpenFileDialog();
             this.dataView = new System.Windows.Forms.DataGridView();
-            this.time_interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.heart_rate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.speeds = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cadences = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.altitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Power_watt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnGraph = new System.Windows.Forms.Button();
             this.groupHeading = new System.Windows.Forms.GroupBox();
             this.lblInterval = new System.Windows.Forms.Label();
@@ -75,6 +69,7 @@
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblUS = new System.Windows.Forms.Label();
+            this.lblAir = new System.Windows.Forms.Label();
             this.lblHR = new System.Windows.Forms.Label();
             this.lblSpeed = new System.Windows.Forms.Label();
             this.lblPowerPedal = new System.Windows.Forms.Label();
@@ -82,7 +77,12 @@
             this.lblPowerLR = new System.Windows.Forms.Label();
             this.lblCandence = new System.Windows.Forms.Label();
             this.lblPower = new System.Windows.Forms.Label();
-            this.lblAir = new System.Windows.Forms.Label();
+            this.time_interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.heart_rate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.speeds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cadences = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.altitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Power_watt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataView)).BeginInit();
             this.groupHeading.SuspendLayout();
@@ -189,36 +189,6 @@
             this.dataView.Name = "dataView";
             this.dataView.Size = new System.Drawing.Size(719, 381);
             this.dataView.TabIndex = 5;
-            // 
-            // time_interval
-            // 
-            this.time_interval.HeaderText = "Time Interval";
-            this.time_interval.Name = "time_interval";
-            // 
-            // heart_rate
-            // 
-            this.heart_rate.HeaderText = "Heart Rate";
-            this.heart_rate.Name = "heart_rate";
-            // 
-            // speeds
-            // 
-            this.speeds.HeaderText = "Speed";
-            this.speeds.Name = "speeds";
-            // 
-            // cadences
-            // 
-            this.cadences.HeaderText = "Cadence";
-            this.cadences.Name = "cadences";
-            // 
-            // altitude
-            // 
-            this.altitude.HeaderText = "Altitude";
-            this.altitude.Name = "altitude";
-            // 
-            // Power_watt
-            // 
-            this.Power_watt.HeaderText = "Power(Watts)";
-            this.Power_watt.Name = "Power_watt";
             // 
             // btnGraph
             // 
@@ -444,7 +414,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(138, 68);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(395, 160);
+            this.richTextBox1.Size = new System.Drawing.Size(397, 160);
             this.richTextBox1.TabIndex = 10;
             this.richTextBox1.Text = "Polar Cycle  Computer\n\nData Analysis";
             // 
@@ -489,6 +459,14 @@
             this.lblUS.Size = new System.Drawing.Size(83, 13);
             this.lblUS.TabIndex = 0;
             this.lblUS.Text = "US/Euro unit";
+            // 
+            // lblAir
+            // 
+            this.lblAir.Location = new System.Drawing.Point(13, 178);
+            this.lblAir.Name = "lblAir";
+            this.lblAir.Size = new System.Drawing.Size(128, 13);
+            this.lblAir.TabIndex = 0;
+            this.lblAir.Text = "Air Pressure";
             // 
             // lblHR
             // 
@@ -553,13 +531,35 @@
             this.lblPower.TabIndex = 3;
             this.lblPower.Text = "Power";
             // 
-            // lblAir
+            // time_interval
             // 
-            this.lblAir.Location = new System.Drawing.Point(13, 178);
-            this.lblAir.Name = "lblAir";
-            this.lblAir.Size = new System.Drawing.Size(128, 13);
-            this.lblAir.TabIndex = 0;
-            this.lblAir.Text = "Air Pressure";
+            this.time_interval.HeaderText = "Time Interval";
+            this.time_interval.Name = "time_interval";
+            // 
+            // heart_rate
+            // 
+            this.heart_rate.HeaderText = "Heart Rate (BPM)";
+            this.heart_rate.Name = "heart_rate";
+            // 
+            // speeds
+            // 
+            this.speeds.HeaderText = "Speed (KM/Hr)";
+            this.speeds.Name = "speeds";
+            // 
+            // cadences
+            // 
+            this.cadences.HeaderText = "Cadence (RPM)";
+            this.cadences.Name = "cadences";
+            // 
+            // altitude
+            // 
+            this.altitude.HeaderText = "Altitude (Meters)";
+            this.altitude.Name = "altitude";
+            // 
+            // Power_watt
+            // 
+            this.Power_watt.HeaderText = "Power(Watts)";
+            this.Power_watt.Name = "Power_watt";
             // 
             // Dashbord
             // 
@@ -578,6 +578,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Dashbord";
+            this.Text = "Dashboard";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataView)).EndInit();
@@ -632,12 +633,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label lblSmode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn time_interval;
-        private System.Windows.Forms.DataGridViewTextBoxColumn heart_rate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn speeds;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cadences;
-        private System.Windows.Forms.DataGridViewTextBoxColumn altitude;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Power_watt;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblUS;
         private System.Windows.Forms.Label lblHR;
@@ -648,6 +643,12 @@
         private System.Windows.Forms.Label lblCandence;
         private System.Windows.Forms.Label lblPower;
         private System.Windows.Forms.Label lblAir;
+        private System.Windows.Forms.DataGridViewTextBoxColumn time_interval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn heart_rate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn speeds;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cadences;
+        private System.Windows.Forms.DataGridViewTextBoxColumn altitude;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Power_watt;
     }
 }
 

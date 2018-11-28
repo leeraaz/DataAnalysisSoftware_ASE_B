@@ -17,6 +17,7 @@ namespace DataAnalysisSoftware
         {
             InitializeComponent();
         }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -42,31 +43,92 @@ namespace DataAnalysisSoftware
             myPane.YAxis.Title.Text = "Times";
             myPane.Title.FontSpec.FontColor = Color.BlueViolet;
 
+            PointPairList speed = new PointPairList();
+            PointPairList cadence = new PointPairList();
+            PointPairList altitude = new PointPairList();
+            PointPairList heart_rate = new PointPairList();
+            PointPairList power = new PointPairList();
+
+            myPane.XAxis.Scale.Min = 1;
+            myPane.XAxis.Scale.Max = 4000;
+
+            myPane.YAxis.Scale.Min = 1;
+            myPane.YAxis.Scale.Max = 650;
+
+            double[] hr = Dashbord.graphHeartRate;
+            double[] sp = Dashbord.graphSpeed;
+            double[] cd = Dashbord.graphCadence;
+            double[] alt = Dashbord.graphAltitude;
+            double[] pwr = Dashbord.graphPower;
+
+            for (int i = 0; i < hr.Length; i++)
+            {
+                heart_rate.Add(i, hr[i]);
+                speed.Add(i, sp[i]);
+                cadence.Add(i, cd[i]);
+                altitude.Add(i, alt[i]);
+                power.Add(i, pwr[i]);
+            }
+
+            LineItem hrCurve = myPane.AddCurve("Heart Rate", heart_rate, Color.Black, SymbolType.None);
+            hrCurve.Line.IsSmooth = true;
+            hrCurve.Line.SmoothTension = 1f;
+
+            LineItem spCurve = myPane.AddCurve("Speed", speed, Color.Pink, SymbolType.None);
+            spCurve.Line.IsSmooth = true;
+            spCurve.Line.SmoothTension = 1f;
+
+            LineItem cdCurve = myPane.AddCurve("Cadence", cadence, Color.DarkBlue, SymbolType.None);
+            cdCurve.Line.IsSmooth = true;
+            cdCurve.Line.SmoothTension = 1f;
+
+            LineItem altCurve = myPane.AddCurve("Altitude", altitude, Color.Yellow, SymbolType.None);
+            altCurve.Line.IsSmooth = true;
+            altCurve.Line.SmoothTension = 1f;
+
+            LineItem pwCurve = myPane.AddCurve("Power", power, Color.DarkOrchid, SymbolType.None);
+            pwCurve.Line.IsSmooth = true;
+            pwCurve.Line.SmoothTension = 1f;
+
+            zedGraphControl1.AxisChange();
+
+        }
+
+        private void lblCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GraphPane myPane = zedGraphControl1.GraphPane;
+
+            // Set the Titles
+            myPane.Title.Text = "Polar Cycle Computer";
+            myPane.XAxis.Title.Text = "Year";
+            myPane.YAxis.Title.Text = "Times";
+            myPane.Title.FontSpec.FontColor = Color.BlueViolet;
+
             if (lblCombo.SelectedItem.ToString() == "Speed")
             {
-                PointPairList speed = new PointPairList(); 
+                zedGraphControl1.GraphPane.CurveList.Clear();
+                PointPairList speed = new PointPairList();
 
                 myPane.XAxis.Scale.Min = 1;
                 myPane.XAxis.Scale.Max = 4000;
 
                 myPane.YAxis.Scale.Min = 1;
                 myPane.YAxis.Scale.Max = 650;
-                
+
                 double[] sp = Dashbord.graphSpeed;
-            
+
                 for (int i = 0; i < sp.Length; i++)
                 {
                     speed.Add(i, sp[i]);
                 }
                 LineItem spCurve = myPane.AddCurve("Speed",
-                      speed, Color.Crimson, SymbolType.Circle);
-
-                this.Refresh();
+                      speed, Color.Crimson, SymbolType.None);
+                
+                zedGraphControl1.Refresh();
             }
             else if (lblCombo.SelectedItem.ToString() == "Cadence")
             {
-                this.Refresh();
-                zedGraphControl1.Refresh();
+                zedGraphControl1.GraphPane.CurveList.Clear();
                 PointPairList cadence = new PointPairList();
 
                 myPane.XAxis.Scale.Min = 1;
@@ -74,7 +136,7 @@ namespace DataAnalysisSoftware
 
                 myPane.YAxis.Scale.Min = 1;
                 myPane.YAxis.Scale.Max = 650;
-                
+
                 double[] cad = Dashbord.graphCadence;
 
                 for (int i = 0; i < cad.Length; i++)
@@ -82,13 +144,13 @@ namespace DataAnalysisSoftware
                     cadence.Add(i, cad[i]);
                 }
                 LineItem cdCurve = myPane.AddCurve("Cadence",
-                      cadence, Color.DarkBlue, SymbolType.Star);
+                      cadence, Color.DarkBlue, SymbolType.None);
 
                 zedGraphControl1.Refresh();
             }
             else if (lblCombo.SelectedItem.ToString() == "Altitude")
             {
-                zedGraphControl1.Refresh();
+                zedGraphControl1.GraphPane.CurveList.Clear();
                 PointPairList altitude = new PointPairList();
 
                 myPane.XAxis.Scale.Min = 1;
@@ -96,7 +158,7 @@ namespace DataAnalysisSoftware
 
                 myPane.YAxis.Scale.Min = 1;
                 myPane.YAxis.Scale.Max = 650;
-                
+
                 double[] alt = Dashbord.graphAltitude;
 
                 for (int i = 0; i < alt.Length; i++)
@@ -104,13 +166,13 @@ namespace DataAnalysisSoftware
                     altitude.Add(i, alt[i]);
                 }
                 LineItem altCurve = myPane.AddCurve("Altitude",
-                    altitude, Color.Yellow, SymbolType.Triangle);
+                    altitude, Color.Yellow, SymbolType.None);
 
                 zedGraphControl1.Refresh();
             }
             else if (lblCombo.SelectedItem.ToString() == "Heart Rate")
             {
-                zedGraphControl1.Refresh();
+                zedGraphControl1.GraphPane.CurveList.Clear();
                 PointPairList heart_rate = new PointPairList();
 
                 myPane.XAxis.Scale.Min = 1;
@@ -126,11 +188,13 @@ namespace DataAnalysisSoftware
                     heart_rate.Add(i, hr[i]);
                 }
                 LineItem hrCurve = myPane.AddCurve("Heart Rate",
-                      heart_rate, Color.Black, SymbolType.Square);
-            }
-            else if (lblCombo.SelectedItem.ToString() == "Power")
-            {
+                      heart_rate, Color.Black, SymbolType.None);
+
                 zedGraphControl1.Refresh();
+            }
+            else if(lblCombo.SelectedItem.ToString() == "Power")
+            {
+                zedGraphControl1.GraphPane.CurveList.Clear();
                 PointPairList power = new PointPairList();
 
                 myPane.XAxis.Scale.Min = 1;
@@ -138,7 +202,7 @@ namespace DataAnalysisSoftware
 
                 myPane.YAxis.Scale.Min = 1;
                 myPane.YAxis.Scale.Max = 650;
-                
+
                 double[] pwr = Dashbord.graphPower;
 
                 for (int i = 0; i < pwr.Length; i++)
@@ -147,10 +211,17 @@ namespace DataAnalysisSoftware
                 }
                 LineItem pwCurve = myPane.AddCurve("Power",
                       power, Color.DarkOrchid, SymbolType.None);
-            }
-            else
-            {
+
                 zedGraphControl1.Refresh();
+            }
+            else if(lblCombo.SelectedItem.ToString() == "None")
+            {
+                zedGraphControl1.GraphPane.CurveList.Clear();
+                myPane.Title.Text = "Polar Cycle Computer";
+                myPane.XAxis.Title.Text = "Year";
+                myPane.YAxis.Title.Text = "Times";
+                myPane.Title.FontSpec.FontColor = Color.BlueViolet;
+
                 PointPairList speed = new PointPairList();
                 PointPairList cadence = new PointPairList();
                 PointPairList altitude = new PointPairList();
@@ -178,23 +249,33 @@ namespace DataAnalysisSoftware
                     power.Add(i, pwr[i]);
                 }
 
-                LineItem hrCurve = myPane.AddCurve("Heart Rate",
-                      heart_rate, Color.Red, SymbolType.Square);
+                LineItem hrCurve = myPane.AddCurve("Heart Rate", heart_rate, Color.Black, SymbolType.None);
+                hrCurve.Line.IsSmooth = true;
+                hrCurve.Line.SmoothTension = 1f;
 
-                LineItem spCurve = myPane.AddCurve("Speed",
-                      speed, Color.Crimson, SymbolType.Circle);
+                LineItem spCurve = myPane.AddCurve("Speed", speed, Color.Pink, SymbolType.None);
+                spCurve.Line.IsSmooth = true;
+                spCurve.Line.SmoothTension = 1f;
 
-                LineItem cdCurve = myPane.AddCurve("Cadence",
-                      cadence, Color.DarkBlue, SymbolType.Star);
+                LineItem cdCurve = myPane.AddCurve("Cadence", cadence, Color.DarkBlue, SymbolType.None);
+                cdCurve.Line.IsSmooth = true;
+                cdCurve.Line.SmoothTension = 1f;
 
-                LineItem altCurve = myPane.AddCurve("Altitude",
-                    altitude, Color.Yellow, SymbolType.Triangle);
+                LineItem altCurve = myPane.AddCurve("Altitude", altitude, Color.Yellow, SymbolType.None);
+                altCurve.Line.IsSmooth = true;
+                altCurve.Line.SmoothTension = 1f;
 
-                LineItem pwCurve = myPane.AddCurve("Power",
-                      power, Color.DarkOrchid, SymbolType.None);
-            }
+                LineItem pwCurve = myPane.AddCurve("Power", power, Color.DarkOrchid, SymbolType.None);
+                pwCurve.Line.IsSmooth = true;
+                pwCurve.Line.SmoothTension = 1f;
+
+                zedGraphControl1.Refresh();
                 zedGraphControl1.AxisChange();
-            
+            }
+            else
+            {
+                MessageBox.Show("Please select the appropriate value.");
+            }
         }
     }
 }
