@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Globalization;
+using ZedGraph;
 
 namespace DataAnalysisSoftware
 {
@@ -49,10 +50,34 @@ namespace DataAnalysisSoftware
         string data = "";
         int count = 0;
 
+        int intervalVal;
+        int NP;
+        double IF;
+        int Versionval;
+        double Distance;
+        string filetext;
+        double FTP;
+        int NP1;
+
+        public double[] Larray, Rarray, PIarray;
+        public string result;
+        long PowerB, leftMask, PedIndMask;
+        string PBbinary, leftBin, PiBin;
+        public double lvalue, pvalue, rvalue;
+        double left, pedindex, right;
+        public double rows;
+
+        //public GraphPane GraphPane;
+        public GraphPane GraphPane2;
+
+        int[] intervals = new int[20] { 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800 };
+        int intcounter = 0;
+
         //for graph uses
         public static double[] graphHeartRate { get; set; }
         public static double[] graphSpeed { get; set; }
         public static double[] graphCadence { get; set; }
+
         public static double[] graphAltitude { get; set; }
 
         private void FileNameList_MouseClick(object sender, MouseEventArgs e)
@@ -152,9 +177,9 @@ namespace DataAnalysisSoftware
                     }
                 }
             }
-            catch(Exception msg)
+            catch (Exception msg)
             {
-                MessageBox.Show("An error occured: " +msg.Message);
+                MessageBox.Show("An error occured: " + msg.Message);
             }
         }
 
@@ -428,6 +453,7 @@ namespace DataAnalysisSoftware
             double min = double.Parse(arrayStartTimes[0]);
             double hrs = double.Parse(arrayStartTimes[1]);
             double intervalTwo = 0;
+            dataView.Columns.Add("Column", "Power Balance & Pedalling Index");
 
             for (int x = 0; x < count; x++)
             {
@@ -507,6 +533,14 @@ namespace DataAnalysisSoftware
                     dataView.Rows[x].Cells[5].Value = 0;
                 }
 
+                if (powerLRBalance == '1')
+                {
+                    dataView.Rows[x].Cells[6].Value = filter[x][5];
+                }
+                else if (powerLRBalance == '0')
+                {
+                    dataView.Rows[x].Cells[5].Value = 0;
+                }
                 if (hrcc == '1')
                 {
                     //average heart rate
@@ -540,7 +574,7 @@ namespace DataAnalysisSoftware
                 if (power == '1')
                 {
                     //average power
-                        powerTotal += Convert.ToInt32(filter[x][5]);
+                    powerTotal += Convert.ToInt32(filter[x][5]);
                     //powerTotal = powerTotal + int.Parse(filter[x][5]);
                     averagePower = powerTotal / count;
 
@@ -646,6 +680,277 @@ namespace DataAnalysisSoftware
             double averageAltitude = coloumnDataofAltitude.Average();
             lblAverageAltidude.Text = "Average Altitude: " + Math.Round(averageAltitude, 3).ToString() + " " + "meter";
             #endregion
+        }
+
+        private void btnSelectedData_Click(object sender, EventArgs e)
+        {
+            dataSelectCalculation();
+        }
+        public void dataSelectCalculation()
+        {
+            SelectedData selectData = new SelectedData();
+
+            Int32 selectedRowCount = dataView.Rows.GetRowCount(DataGridViewElementStates.Selected);
+
+            Double AvgHR1 = 0;
+            for (int i = 0; i < selectedRowCount; ++i)
+            {
+                AvgHR1 += Convert.ToInt32(dataView.SelectedRows[i].Cells[1].Value);
+            }
+            AvgHR1 = AvgHR1 / selectedRowCount;
+
+            /////////////////////
+            Double MaxHR1 = dataView.SelectedRows.Cast<DataGridViewRow>()
+                        .Max(r => Convert.ToInt32(r.Cells[1].Value));
+
+            Double MinHR1 = dataView.SelectedRows.Cast<DataGridViewRow>()
+                        .Min(r => Convert.ToInt32(r.Cells[1].Value));
+
+            selectData.gropHR.Visible = true;
+            selectData.lblHRMax.Text = "Maximum: " + MaxHR1.ToString("0");
+            selectData.lblHRAvg.Text = "Average: " + AvgHR1.ToString("0");
+            selectData.lblHRMin.Text = "Minimum: " + MinHR1.ToString("0");
+
+            Double AvgSP1 = 0;
+            for (int i = 0; i < selectedRowCount; ++i)
+            {
+                AvgSP1 += Convert.ToDouble(dataView.Rows[i].Cells[2].Value);
+            }
+            AvgSP1 = AvgSP1 / selectedRowCount;
+
+            Double MaxSP1 = dataView.SelectedRows.Cast<DataGridViewRow>()
+                        .Max(r => Convert.ToDouble(r.Cells[2].Value));
+
+            Double MinSP1 = dataView.SelectedRows.Cast<DataGridViewRow>()
+                        .Min(r => Convert.ToDouble(r.Cells[2].Value));
+            selectData.grpBoxSpd.Visible = true;
+            selectData.lblSpdMax.Text = "Maximum: " + MaxSP1.ToString("0.0");
+            selectData.lblSpdAvg.Text = "Average: " + AvgSP1.ToString("0.0");
+            selectData.lblSpdMin.Text = "Minimum: " + MinSP1.ToString("0.0");
+
+            Double avgAlt = 0;
+            for (int i = 0; i < selectedRowCount; ++i)
+            {
+                avgAlt += Convert.ToInt32(dataView.SelectedRows[i].Cells[4].Value);
+            }
+            avgAlt = avgAlt / selectedRowCount;
+
+            /////////////////////
+            Double MaxAvg = dataView.SelectedRows.Cast<DataGridViewRow>()
+                        .Max(r => Convert.ToInt32(r.Cells[4].Value));
+
+            Double MinAvg = dataView.SelectedRows.Cast<DataGridViewRow>()
+                        .Min(r => Convert.ToInt32(r.Cells[4].Value));
+
+            selectData.gropHR.Visible = true;
+            selectData.lblAltMax.Text = "Maximum: " + MaxAvg.ToString("0");
+            selectData.lblAltAvg.Text = "Average: " + avgAlt.ToString("0");
+            selectData.lblAltMin.Text = "Minimum: " + MinAvg.ToString("0");
+
+
+            Double AvgPwr = 0;
+            for (int i = 0; i < selectedRowCount; ++i)
+            {
+                AvgPwr += Convert.ToInt32(dataView.SelectedRows[i].Cells[5].Value);
+            }
+            AvgPwr = AvgPwr / selectedRowCount;
+
+            /////////////////////
+            Double MaxPwr = dataView.SelectedRows.Cast<DataGridViewRow>()
+                        .Max(r => Convert.ToInt32(r.Cells[5].Value));
+
+            Double MinPwr = dataView.SelectedRows.Cast<DataGridViewRow>()
+                        .Min(r => Convert.ToInt32(r.Cells[5].Value));
+
+            selectData.grpBoxPwr.Visible = true;
+            selectData.lblPwrMax.Text = "Maximum: " + MaxPwr.ToString("0");
+            selectData.lblPwrAvg.Text = "Average: " + AvgPwr.ToString("0");
+            selectData.lblPwrMin.Text = "Minimum: " + MinPwr.ToString("0");
+
+            ///// Calculating normalized power for new graph        
+            List<int> initialPower1 = new List<int>();
+            List<double> list1 = new List<double>();
+            double total1 = 1;
+            double average1;
+
+            try
+            {
+                for (int ii = 1; ii < dataView.SelectedRows.Count; ii++)
+                {
+                    for (int n = 0; n < ii + 30; n++)
+                    {
+                        initialPower1.Add(Convert.ToInt32(dataView.Rows[ii + n].Cells[5].Value));
+                    }
+                    average1 = initialPower1.Average();
+                    total1 = Math.Pow(average1, 4.00);
+                    list1.Add(total1);
+                    initialPower1.Clear();
+                }
+
+            }
+            catch (Exception)
+            {
+                average1 = list1.Average();
+                NP1 = Convert.ToInt32(Math.Pow(average1, 1.0 / 4.00));
+                selectData.np2.Text = NP1.ToString("0 watts");
+                selectData.np2.Visible = true;
+            }
+
+
+            //////////////////////Selectable Data - Pedal index/////////////////////////////////////
+            left = pedindex = right = 0;
+            Larray = new double[dataView.SelectedRows.Count];
+            Rarray = new double[dataView.SelectedRows.Count];
+            PIarray = new double[dataView.SelectedRows.Count];
+            for (int i = 0; i < dataView.SelectedRows.Count; ++i)
+            {
+                if (dataView.Rows[i].Cells[6].Value != null)
+                {
+                    PowerB = Convert.ToInt64(dataView.SelectedRows[i].Cells[6].Value);
+                    pedalBal(PowerB);
+                    Larray[i] = lvalue;
+                    left += lvalue;
+                    Rarray[i] = rvalue;
+                    right += rvalue;
+                    PIarray[i] = pvalue;
+                    pedindex += pvalue;
+                }
+            }
+
+            rows = dataView.SelectedRows.Count;
+            left = Math.Round(left, 2);
+            double averLeft = left / rows;
+            averLeft = Math.Round(averLeft, 2);
+            selectData.PBLeft2.Text = averLeft.ToString();
+
+            right = Math.Round(right, 2);
+            double averRight = right / rows;
+            averRight = Math.Round(averRight, 2);
+            selectData.PBRight2.Text = averRight.ToString();
+
+            pedindex = Math.Round(pedindex, 2);
+            double averpedInd = pedindex / rows;
+            averpedInd = Math.Round(averpedInd, 2);
+            selectData.PILabel2.Text = averpedInd.ToString();
+
+            CreateGraph2(selectData.selectedZedGraph);
+            selectData.Show();
+        }
+
+        private void CreateGraph2(ZedGraphControl graph2)
+        {
+            graph2.GraphPane.CurveList.Clear();
+            // get a reference to the GraphPane
+            GraphPane2 = graph2.GraphPane;
+            // Set the Titles
+            //GraphPane2.Title.Text = "Cycle Data Graph";
+            //GraphPane2.YAxis.Title.Text = "Value";
+            GraphPane2.Title.Text = "Polar Cycle Computer";
+            GraphPane2.XAxis.Title.Text = "Year";
+            GraphPane2.YAxis.Title.Text = "Times";
+            GraphPane2.Title.FontSpec.FontColor = Color.BlueViolet;
+
+            double x, y1, y2, y3, y4, y5;
+            PointPairList list1 = new PointPairList();
+            PointPairList list2 = new PointPairList();
+            PointPairList list3 = new PointPairList();
+            PointPairList list4 = new PointPairList();
+            PointPairList list5 = new PointPairList();
+
+            x = 0;
+
+            for (int i = 0; i < dataView.SelectedRows.Count; i++)
+            {
+
+                x = i + intervalVal;
+                GraphPane2.XAxis.Title.Text = "Time In Seconds";
+                y1 = Convert.ToDouble(dataView.SelectedRows[i].Cells[1].Value);
+                y2 = Convert.ToDouble(dataView.SelectedRows[i].Cells[2].Value);
+                y3 = Convert.ToDouble(dataView.SelectedRows[i].Cells[3].Value);
+                y4 = Convert.ToDouble(dataView.SelectedRows[i].Cells[4].Value);
+                y5 = Convert.ToDouble(dataView.SelectedRows[i].Cells[5].Value);
+
+                list1.Add(x, y1);
+                list2.Add(x, y2);
+                list3.Add(x, y3);
+                list4.Add(x, y4);
+                list5.Add(x, y5);
+            }
+
+
+            LineItem curve;
+            curve = GraphPane2.AddCurve("Heart Rate", list1, Color.Blue, SymbolType.None);
+            curve.Line.Width = 0.1F;
+            curve.Symbol.Fill = new Fill(Color.White);
+            curve.Symbol.Size = 1;
+            //Smoothes the cardinal spline
+            curve.Line.IsSmooth = true;
+            curve.Line.SmoothTension = 1F;
+
+            LineItem curve1;
+            curve1 = GraphPane2.AddCurve("Speed", list2, Color.Red, SymbolType.None);
+            curve1.Line.Width = 0.1F;
+            curve1.Symbol.Fill = new Fill(Color.White);
+            curve1.Symbol.Size = 1;
+            //Smoothes the cardinal spline
+            curve1.Line.IsSmooth = true;
+            curve1.Line.SmoothTension = 1F;
+
+
+            /*
+                        //if the version is over 1.06 then run the extened Graph Method
+                        if (Versionval >= 106)
+                        {
+
+                            for (int ii = 0; ii < dataView.SelectedRows.Count; ii++)
+                            {*/
+            //x = ii + intervalVal;
+
+            // }
+
+            LineItem curve2;
+            curve2 = GraphPane2.AddCurve("Cadence", list3, Color.Green, SymbolType.None);
+            curve2.Line.Width = 0.1F;
+            curve2.Symbol.Fill = new Fill(Color.White);
+            curve2.Symbol.Size = 1;
+            //Smoothes the cardinal spline
+            curve2.Line.IsSmooth = true;
+            curve2.Line.SmoothTension = 1F;
+
+            LineItem curve3;
+            curve3 = GraphPane2.AddCurve("Altitude", list4, Color.SkyBlue, SymbolType.None);
+            curve3.Line.Width = 0.1F;
+            curve3.Symbol.Fill = new Fill(Color.White);
+            curve3.Symbol.Size = 1;
+            //Smoothes the cardinal spline
+            curve3.Line.IsSmooth = true;
+            curve3.Line.SmoothTension = 1F;
+
+            LineItem curve4;
+            curve4 = GraphPane2.AddCurve("Power", list5, Color.DarkOrange, SymbolType.None);
+            curve4.Line.Width = 0.1F;
+            curve4.Symbol.Fill = new Fill(Color.White);
+            curve4.Symbol.Size = 1;
+            //Smoothes the cardinal spline
+            curve4.Line.IsSmooth = true;
+            curve4.Line.SmoothTension = 1F;
+
+            graph2.AxisChange();
+            graph2.Invalidate();
+        }
+        
+        public void pedalBal(long value)
+        {
+            PBbinary = Convert.ToString(value, 2).PadLeft(16, '0');
+            leftMask = PowerB & 255;
+            leftBin = Convert.ToString(leftMask, 2).PadLeft(16, '0');
+            lvalue = Convert.ToInt32(leftBin, 2);
+            rvalue = 100 - lvalue;
+            PedIndMask = value & 65280;
+            PedIndMask = PedIndMask >> 8;
+            PiBin = Convert.ToString(PedIndMask, 2).PadLeft(16, '0');
+            pvalue = Convert.ToInt32(PiBin, 2);
+
         }
     }
 }

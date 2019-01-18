@@ -42,6 +42,12 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openFiles = new System.Windows.Forms.OpenFileDialog();
             this.dataView = new System.Windows.Forms.DataGridView();
+            this.time_interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.heart_rate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.speeds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cadences = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.altitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Power_watt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnGraph = new System.Windows.Forms.Button();
             this.groupHeading = new System.Windows.Forms.GroupBox();
             this.lblInterval = new System.Windows.Forms.Label();
@@ -77,12 +83,7 @@
             this.lblPowerLR = new System.Windows.Forms.Label();
             this.lblCandence = new System.Windows.Forms.Label();
             this.lblPower = new System.Windows.Forms.Label();
-            this.time_interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.heart_rate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.speeds = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cadences = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.altitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Power_watt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSelectedData = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataView)).BeginInit();
             this.groupHeading.SuspendLayout();
@@ -189,6 +190,36 @@
             this.dataView.Name = "dataView";
             this.dataView.Size = new System.Drawing.Size(719, 381);
             this.dataView.TabIndex = 5;
+            // 
+            // time_interval
+            // 
+            this.time_interval.HeaderText = "Time Interval";
+            this.time_interval.Name = "time_interval";
+            // 
+            // heart_rate
+            // 
+            this.heart_rate.HeaderText = "Heart Rate (BPM)";
+            this.heart_rate.Name = "heart_rate";
+            // 
+            // speeds
+            // 
+            this.speeds.HeaderText = "Speed (KM/Hr)";
+            this.speeds.Name = "speeds";
+            // 
+            // cadences
+            // 
+            this.cadences.HeaderText = "Cadence (RPM)";
+            this.cadences.Name = "cadences";
+            // 
+            // altitude
+            // 
+            this.altitude.HeaderText = "Altitude (Meters)";
+            this.altitude.Name = "altitude";
+            // 
+            // Power_watt
+            // 
+            this.Power_watt.HeaderText = "Power(Watts)";
+            this.Power_watt.Name = "Power_watt";
             // 
             // btnGraph
             // 
@@ -531,41 +562,22 @@
             this.lblPower.TabIndex = 3;
             this.lblPower.Text = "Power";
             // 
-            // time_interval
+            // btnSelectedData
             // 
-            this.time_interval.HeaderText = "Time Interval";
-            this.time_interval.Name = "time_interval";
-            // 
-            // heart_rate
-            // 
-            this.heart_rate.HeaderText = "Heart Rate (BPM)";
-            this.heart_rate.Name = "heart_rate";
-            // 
-            // speeds
-            // 
-            this.speeds.HeaderText = "Speed (KM/Hr)";
-            this.speeds.Name = "speeds";
-            // 
-            // cadences
-            // 
-            this.cadences.HeaderText = "Cadence (RPM)";
-            this.cadences.Name = "cadences";
-            // 
-            // altitude
-            // 
-            this.altitude.HeaderText = "Altitude (Meters)";
-            this.altitude.Name = "altitude";
-            // 
-            // Power_watt
-            // 
-            this.Power_watt.HeaderText = "Power(Watts)";
-            this.Power_watt.Name = "Power_watt";
+            this.btnSelectedData.Location = new System.Drawing.Point(174, 27);
+            this.btnSelectedData.Name = "btnSelectedData";
+            this.btnSelectedData.Size = new System.Drawing.Size(75, 23);
+            this.btnSelectedData.TabIndex = 13;
+            this.btnSelectedData.Text = "Calculate Selected Data.";
+            this.btnSelectedData.UseVisualStyleBackColor = true;
+            this.btnSelectedData.Click += new System.EventHandler(this.btnSelectedData_Click);
             // 
             // Dashbord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(965, 629);
+            this.Controls.Add(this.btnSelectedData);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.FileNameList);
             this.Controls.Add(this.richTextBox1);
@@ -649,6 +661,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cadences;
         private System.Windows.Forms.DataGridViewTextBoxColumn altitude;
         private System.Windows.Forms.DataGridViewTextBoxColumn Power_watt;
+        private System.Windows.Forms.Button btnSelectedData;
     }
 }
 

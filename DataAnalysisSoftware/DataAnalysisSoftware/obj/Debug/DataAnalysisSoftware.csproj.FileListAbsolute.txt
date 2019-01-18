@@ -10,3 +10,4 @@ F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\D
 F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\bin\Debug\ZedGraph.dll
 F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.graphImage.resources
 F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.About.resources
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.SelectedData.resources

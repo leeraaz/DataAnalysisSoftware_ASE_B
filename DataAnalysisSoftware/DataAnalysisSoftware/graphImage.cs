@@ -82,7 +82,7 @@ namespace DataAnalysisSoftware
             cdCurve.Line.IsSmooth = true;
             cdCurve.Line.SmoothTension = 1f;
 
-            LineItem altCurve = myPane.AddCurve("Altitude", altitude, Color.Yellow, SymbolType.None);
+            LineItem altCurve = myPane.AddCurve("Altitude", altitude, Color.Yellow, SymbolType.Star);
             altCurve.Line.IsSmooth = true;
             altCurve.Line.SmoothTension = 1f;
 
@@ -166,7 +166,7 @@ namespace DataAnalysisSoftware
                     altitude.Add(i, alt[i]);
                 }
                 LineItem altCurve = myPane.AddCurve("Altitude",
-                    altitude, Color.Yellow, SymbolType.None);
+                    altitude, Color.Yellow, SymbolType.Star);
 
                 zedGraphControl1.Refresh();
             }
@@ -261,7 +261,7 @@ namespace DataAnalysisSoftware
                 cdCurve.Line.IsSmooth = true;
                 cdCurve.Line.SmoothTension = 1f;
 
-                LineItem altCurve = myPane.AddCurve("Altitude", altitude, Color.Yellow, SymbolType.None);
+                LineItem altCurve = myPane.AddCurve("Altitude", altitude, Color.Yellow, SymbolType.Star);
                 altCurve.Line.IsSmooth = true;
                 altCurve.Line.SmoothTension = 1f;
 
