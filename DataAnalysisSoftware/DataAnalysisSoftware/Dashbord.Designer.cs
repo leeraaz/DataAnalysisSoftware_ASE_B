@@ -84,11 +84,28 @@
             this.lblCandence = new System.Windows.Forms.Label();
             this.lblPower = new System.Windows.Forms.Label();
             this.btnSelectedData = new System.Windows.Forms.Button();
+            this.grpBoxAdvMetrics = new System.Windows.Forms.GroupBox();
+            this.lblPadelIndex = new System.Windows.Forms.Label();
+            this.PILabel = new System.Windows.Forms.Label();
+            this.lblPowerBalanceRight = new System.Windows.Forms.Label();
+            this.PBRight = new System.Windows.Forms.Label();
+            this.lblPowerBalanceLeft = new System.Windows.Forms.Label();
+            this.PBLeft = new System.Windows.Forms.Label();
+            this.lblheading = new System.Windows.Forms.Label();
+            this.lblTSS = new System.Windows.Forms.Label();
+            this.txtFTPBox = new System.Windows.Forms.TextBox();
+            this.btnCalculateTSS = new System.Windows.Forms.Button();
+            this.labeltss = new System.Windows.Forms.Label();
+            this.lblNormalizedPwr = new System.Windows.Forms.Label();
+            this.lblIntFactor = new System.Windows.Forms.Label();
+            this.labelif = new System.Windows.Forms.Label();
+            this.labelnp = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataView)).BeginInit();
             this.groupHeading.SuspendLayout();
             this.gropSumData.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.grpBoxAdvMetrics.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLoad
@@ -103,7 +120,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(852, 27);
+            this.btnCancel.Location = new System.Drawing.Point(656, 27);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -118,7 +135,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(965, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1179, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -326,7 +343,7 @@
             this.gropSumData.Controls.Add(this.lblMaxHeartRate);
             this.gropSumData.Location = new System.Drawing.Point(737, 283);
             this.gropSumData.Name = "gropSumData";
-            this.gropSumData.Size = new System.Drawing.Size(219, 334);
+            this.gropSumData.Size = new System.Drawing.Size(438, 334);
             this.gropSumData.TabIndex = 8;
             this.gropSumData.TabStop = false;
             this.gropSumData.Text = "Sumary Data";
@@ -334,7 +351,7 @@
             // lblAverageAltidude
             // 
             this.lblAverageAltidude.AutoSize = true;
-            this.lblAverageAltidude.Location = new System.Drawing.Point(10, 309);
+            this.lblAverageAltidude.Location = new System.Drawing.Point(13, 311);
             this.lblAverageAltidude.Name = "lblAverageAltidude";
             this.lblAverageAltidude.Size = new System.Drawing.Size(85, 13);
             this.lblAverageAltidude.TabIndex = 12;
@@ -343,7 +360,7 @@
             // lblMinAltitude
             // 
             this.lblMinAltitude.AutoSize = true;
-            this.lblMinAltitude.Location = new System.Drawing.Point(10, 286);
+            this.lblMinAltitude.Location = new System.Drawing.Point(13, 288);
             this.lblMinAltitude.Name = "lblMinAltitude";
             this.lblMinAltitude.Size = new System.Drawing.Size(86, 13);
             this.lblMinAltitude.TabIndex = 11;
@@ -352,7 +369,7 @@
             // lblMaxAltitude
             // 
             this.lblMaxAltitude.AutoSize = true;
-            this.lblMaxAltitude.Location = new System.Drawing.Point(10, 262);
+            this.lblMaxAltitude.Location = new System.Drawing.Point(13, 264);
             this.lblMaxAltitude.Name = "lblMaxAltitude";
             this.lblMaxAltitude.Size = new System.Drawing.Size(89, 13);
             this.lblMaxAltitude.TabIndex = 10;
@@ -361,7 +378,7 @@
             // lblAvgPower
             // 
             this.lblAvgPower.AutoSize = true;
-            this.lblAvgPower.Location = new System.Drawing.Point(10, 236);
+            this.lblAvgPower.Location = new System.Drawing.Point(13, 238);
             this.lblAvgPower.Name = "lblAvgPower";
             this.lblAvgPower.Size = new System.Drawing.Size(80, 13);
             this.lblAvgPower.TabIndex = 9;
@@ -370,7 +387,7 @@
             // lblMinPower
             // 
             this.lblMinPower.AutoSize = true;
-            this.lblMinPower.Location = new System.Drawing.Point(10, 211);
+            this.lblMinPower.Location = new System.Drawing.Point(13, 213);
             this.lblMinPower.Name = "lblMinPower";
             this.lblMinPower.Size = new System.Drawing.Size(81, 13);
             this.lblMinPower.TabIndex = 8;
@@ -379,7 +396,7 @@
             // lblMaxPower
             // 
             this.lblMaxPower.AutoSize = true;
-            this.lblMaxPower.Location = new System.Drawing.Point(10, 184);
+            this.lblMaxPower.Location = new System.Drawing.Point(13, 186);
             this.lblMaxPower.Name = "lblMaxPower";
             this.lblMaxPower.Size = new System.Drawing.Size(84, 13);
             this.lblMaxPower.TabIndex = 7;
@@ -476,9 +493,9 @@
             this.groupBox1.Controls.Add(this.lblPowerLR);
             this.groupBox1.Controls.Add(this.lblCandence);
             this.groupBox1.Controls.Add(this.lblPower);
-            this.groupBox1.Location = new System.Drawing.Point(737, 72);
+            this.groupBox1.Location = new System.Drawing.Point(737, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(219, 205);
+            this.groupBox1.Size = new System.Drawing.Size(176, 236);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Smode";
@@ -572,11 +589,174 @@
             this.btnSelectedData.UseVisualStyleBackColor = true;
             this.btnSelectedData.Click += new System.EventHandler(this.btnSelectedData_Click);
             // 
+            // grpBoxAdvMetrics
+            // 
+            this.grpBoxAdvMetrics.Controls.Add(this.lblPadelIndex);
+            this.grpBoxAdvMetrics.Controls.Add(this.PILabel);
+            this.grpBoxAdvMetrics.Controls.Add(this.lblPowerBalanceRight);
+            this.grpBoxAdvMetrics.Controls.Add(this.PBRight);
+            this.grpBoxAdvMetrics.Controls.Add(this.lblPowerBalanceLeft);
+            this.grpBoxAdvMetrics.Controls.Add(this.PBLeft);
+            this.grpBoxAdvMetrics.Controls.Add(this.lblheading);
+            this.grpBoxAdvMetrics.Controls.Add(this.lblTSS);
+            this.grpBoxAdvMetrics.Controls.Add(this.txtFTPBox);
+            this.grpBoxAdvMetrics.Controls.Add(this.btnCalculateTSS);
+            this.grpBoxAdvMetrics.Controls.Add(this.labeltss);
+            this.grpBoxAdvMetrics.Controls.Add(this.lblNormalizedPwr);
+            this.grpBoxAdvMetrics.Controls.Add(this.lblIntFactor);
+            this.grpBoxAdvMetrics.Controls.Add(this.labelif);
+            this.grpBoxAdvMetrics.Controls.Add(this.labelnp);
+            this.grpBoxAdvMetrics.Location = new System.Drawing.Point(919, 27);
+            this.grpBoxAdvMetrics.Name = "grpBoxAdvMetrics";
+            this.grpBoxAdvMetrics.Size = new System.Drawing.Size(256, 236);
+            this.grpBoxAdvMetrics.TabIndex = 62;
+            this.grpBoxAdvMetrics.TabStop = false;
+            this.grpBoxAdvMetrics.Text = "Advanced Metrics:";
+            // 
+            // lblPadelIndex
+            // 
+            this.lblPadelIndex.AutoSize = true;
+            this.lblPadelIndex.Location = new System.Drawing.Point(6, 215);
+            this.lblPadelIndex.Name = "lblPadelIndex";
+            this.lblPadelIndex.Size = new System.Drawing.Size(66, 13);
+            this.lblPadelIndex.TabIndex = 67;
+            this.lblPadelIndex.Text = "Pedal Index:";
+            // 
+            // PILabel
+            // 
+            this.PILabel.AutoSize = true;
+            this.PILabel.Location = new System.Drawing.Point(70, 215);
+            this.PILabel.Name = "PILabel";
+            this.PILabel.Size = new System.Drawing.Size(28, 13);
+            this.PILabel.TabIndex = 68;
+            this.PILabel.Text = "0.00";
+            // 
+            // lblPowerBalanceRight
+            // 
+            this.lblPowerBalanceRight.AutoSize = true;
+            this.lblPowerBalanceRight.Location = new System.Drawing.Point(6, 191);
+            this.lblPowerBalanceRight.Name = "lblPowerBalanceRight";
+            this.lblPowerBalanceRight.Size = new System.Drawing.Size(116, 13);
+            this.lblPowerBalanceRight.TabIndex = 65;
+            this.lblPowerBalanceRight.Text = "Power Balance (Right):";
+            // 
+            // PBRight
+            // 
+            this.PBRight.AutoSize = true;
+            this.PBRight.Location = new System.Drawing.Point(119, 191);
+            this.PBRight.Name = "PBRight";
+            this.PBRight.Size = new System.Drawing.Size(28, 13);
+            this.PBRight.TabIndex = 66;
+            this.PBRight.Text = "0.00";
+            // 
+            // lblPowerBalanceLeft
+            // 
+            this.lblPowerBalanceLeft.AutoSize = true;
+            this.lblPowerBalanceLeft.Location = new System.Drawing.Point(6, 166);
+            this.lblPowerBalanceLeft.Name = "lblPowerBalanceLeft";
+            this.lblPowerBalanceLeft.Size = new System.Drawing.Size(109, 13);
+            this.lblPowerBalanceLeft.TabIndex = 63;
+            this.lblPowerBalanceLeft.Text = "Power Balance (Left):";
+            // 
+            // PBLeft
+            // 
+            this.PBLeft.AutoSize = true;
+            this.PBLeft.Location = new System.Drawing.Point(119, 166);
+            this.PBLeft.Name = "PBLeft";
+            this.PBLeft.Size = new System.Drawing.Size(28, 13);
+            this.PBLeft.TabIndex = 64;
+            this.PBLeft.Text = "0.00";
+            // 
+            // lblheading
+            // 
+            this.lblheading.AutoSize = true;
+            this.lblheading.Location = new System.Drawing.Point(6, 20);
+            this.lblheading.Name = "lblheading";
+            this.lblheading.Size = new System.Drawing.Size(232, 13);
+            this.lblheading.TabIndex = 62;
+            this.lblheading.Text = "Enter your Functional Threshold Power in Watts";
+            // 
+            // lblTSS
+            // 
+            this.lblTSS.AutoSize = true;
+            this.lblTSS.Location = new System.Drawing.Point(6, 80);
+            this.lblTSS.Name = "lblTSS";
+            this.lblTSS.Size = new System.Drawing.Size(111, 13);
+            this.lblTSS.TabIndex = 61;
+            this.lblTSS.Text = "Training Stress Score:";
+            // 
+            // txtFTPBox
+            // 
+            this.txtFTPBox.Location = new System.Drawing.Point(6, 46);
+            this.txtFTPBox.Name = "txtFTPBox";
+            this.txtFTPBox.Size = new System.Drawing.Size(100, 20);
+            this.txtFTPBox.TabIndex = 53;
+            this.txtFTPBox.Text = "Enter FTP";
+            // 
+            // btnCalculateTSS
+            // 
+            this.btnCalculateTSS.Location = new System.Drawing.Point(122, 43);
+            this.btnCalculateTSS.Name = "btnCalculateTSS";
+            this.btnCalculateTSS.Size = new System.Drawing.Size(92, 23);
+            this.btnCalculateTSS.TabIndex = 54;
+            this.btnCalculateTSS.Text = "Calculate TSS";
+            this.btnCalculateTSS.UseVisualStyleBackColor = true;
+            this.btnCalculateTSS.Click += new System.EventHandler(this.btnCalculateTSS_Click);
+            // 
+            // labeltss
+            // 
+            this.labeltss.AutoSize = true;
+            this.labeltss.Location = new System.Drawing.Point(119, 80);
+            this.labeltss.Name = "labeltss";
+            this.labeltss.Size = new System.Drawing.Size(28, 13);
+            this.labeltss.TabIndex = 60;
+            this.labeltss.Text = "0.00";
+            this.labeltss.Visible = false;
+            // 
+            // lblNormalizedPwr
+            // 
+            this.lblNormalizedPwr.AutoSize = true;
+            this.lblNormalizedPwr.Location = new System.Drawing.Point(6, 109);
+            this.lblNormalizedPwr.Name = "lblNormalizedPwr";
+            this.lblNormalizedPwr.Size = new System.Drawing.Size(95, 13);
+            this.lblNormalizedPwr.TabIndex = 55;
+            this.lblNormalizedPwr.Text = "Normalized Power:";
+            // 
+            // lblIntFactor
+            // 
+            this.lblIntFactor.AutoSize = true;
+            this.lblIntFactor.Location = new System.Drawing.Point(6, 139);
+            this.lblIntFactor.Name = "lblIntFactor";
+            this.lblIntFactor.Size = new System.Drawing.Size(82, 13);
+            this.lblIntFactor.TabIndex = 56;
+            this.lblIntFactor.Text = "Intensity Factor:";
+            // 
+            // labelif
+            // 
+            this.labelif.AutoSize = true;
+            this.labelif.Location = new System.Drawing.Point(90, 139);
+            this.labelif.Name = "labelif";
+            this.labelif.Size = new System.Drawing.Size(28, 13);
+            this.labelif.TabIndex = 58;
+            this.labelif.Text = "0.00";
+            this.labelif.Visible = false;
+            // 
+            // labelnp
+            // 
+            this.labelnp.AutoSize = true;
+            this.labelnp.Location = new System.Drawing.Point(100, 109);
+            this.labelnp.Name = "labelnp";
+            this.labelnp.Size = new System.Drawing.Size(28, 13);
+            this.labelnp.TabIndex = 57;
+            this.labelnp.Text = "0.00";
+            this.labelnp.Visible = false;
+            // 
             // Dashbord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(965, 629);
+            this.ClientSize = new System.Drawing.Size(1179, 629);
+            this.Controls.Add(this.grpBoxAdvMetrics);
             this.Controls.Add(this.btnSelectedData);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.FileNameList);
@@ -600,6 +780,8 @@
             this.gropSumData.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.grpBoxAdvMetrics.ResumeLayout(false);
+            this.grpBoxAdvMetrics.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -662,6 +844,22 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn altitude;
         private System.Windows.Forms.DataGridViewTextBoxColumn Power_watt;
         private System.Windows.Forms.Button btnSelectedData;
+        private System.Windows.Forms.GroupBox grpBoxAdvMetrics;
+        private System.Windows.Forms.Label lblPadelIndex;
+        private System.Windows.Forms.Label PILabel;
+        private System.Windows.Forms.Label lblPowerBalanceRight;
+        private System.Windows.Forms.Label PBRight;
+        private System.Windows.Forms.Label lblPowerBalanceLeft;
+        private System.Windows.Forms.Label PBLeft;
+        private System.Windows.Forms.Label lblheading;
+        private System.Windows.Forms.Label lblTSS;
+        private System.Windows.Forms.TextBox txtFTPBox;
+        private System.Windows.Forms.Button btnCalculateTSS;
+        private System.Windows.Forms.Label labeltss;
+        private System.Windows.Forms.Label lblNormalizedPwr;
+        private System.Windows.Forms.Label lblIntFactor;
+        private System.Windows.Forms.Label labelif;
+        private System.Windows.Forms.Label labelnp;
     }
 }
 

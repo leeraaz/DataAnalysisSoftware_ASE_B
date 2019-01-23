@@ -50,6 +50,20 @@ namespace DataAnalysisSoftware
         string data = "";
         int count = 0;
 
+        int MaxHR; //Max Heart Rate
+        int MinHR; //Min Heart Rate
+        double AvgHR; //Average Heart Rate
+
+        int MaxPW; //Max Power
+        double AvgPW; //Average power
+        int MinPW; //Min Power
+
+        int MaxALT; //Max Altitude
+        double AvgALT; //Average Altitude
+
+        double MaxSP; //Max Speed
+        public double AvgSP; //Average Speed
+
         int intervalVal;
         int NP;
         double IF;
@@ -58,6 +72,7 @@ namespace DataAnalysisSoftware
         string filetext;
         double FTP;
         int NP1;
+        double timesec;
 
         public double[] Larray, Rarray, PIarray;
         public string result;
@@ -66,6 +81,7 @@ namespace DataAnalysisSoftware
         public double lvalue, pvalue, rvalue;
         double left, pedindex, right;
         public double rows;
+        
 
         //public GraphPane GraphPane;
         public GraphPane GraphPane2;
@@ -92,11 +108,18 @@ namespace DataAnalysisSoftware
                 {
                     fileReading(item);
                     SummaryCalculation();
+                    advanceMatrics();
                 }
             }
         }
 
         public static double[] graphPower { get; set; }
+
+        private void btnCalculateTSS_Click(object sender, EventArgs e)
+        {
+            CalculateIntensityFactory();
+            calculateTSS();
+        }
 
         private void monthlyCalender_DateChanged(object sender, DateRangeEventArgs e)
         {
@@ -249,14 +272,15 @@ namespace DataAnalysisSoftware
                     string[] arrayLength = length.Split('=');
                     foreach (string itemLength in arrayLength)
                     {
-                        lblLength.Text = "Length: " + itemLength;
-                        //int LengthHR = 0;
-                        //Int32.TryParse(itemLength, out LengthHR);
-                        //int LengthMin = 0;
-                        //Int32.TryParse(itemLength, out LengthMin);
-                        //double LengthSec = 0;
-                        //Double.TryParse(itemLength, out LengthSec);
-                        //lblLength.Text = "Length: " + LengthHR + ":" + LengthMin + ":" + LengthSec;
+                        //lblLength.Text = "Length: " + itemLength;
+                        int LengthHR = 0;
+                        Int32.TryParse(itemLength, out LengthHR);
+                        int LengthMin = 0;
+                        Int32.TryParse(itemLength, out LengthMin);
+                        double LengthSec = 0;
+                        Double.TryParse(itemLength, out LengthSec);
+                        lblLength.Text = "Length: " + LengthHR + ":" + LengthMin + ":" + LengthSec;
+                        timesec = ((LengthHR * 3600) + (LengthMin * 60) + LengthSec);
                     }
                 }
                 if (fileData.Contains("Interval"))
@@ -633,6 +657,37 @@ namespace DataAnalysisSoftware
             }
         }
 
+        private void advanceMatrics()
+        {
+            List<int> initialPower = new List<int>();
+            List<double> list = new List<double>();
+            double total = 1;
+            double average;
+
+            try
+            {
+                for (int i = 1; i < dataView.Rows.Count; i++)
+                {
+                    for (int n = 0; n < i + 30; n++)
+                    {
+                        initialPower.Add(Convert.ToInt32(dataView.Rows[i + n].Cells[5].Value));
+                    }
+                    average = initialPower.Average();
+                    total = Math.Pow(average, 4);
+                    list.Add(total);
+                    initialPower.Clear();
+                }
+
+            }
+            catch (Exception)
+            {
+                average = list.Average();
+                NP = Convert.ToInt32(Math.Pow(average, 1.0 / 4.00));
+                labelnp.Text = NP.ToString("0 watts");
+                labelnp.Visible = true;
+            }
+        }
+
         private void SummaryCalculation()
         {
             #region Filling up the summary data
@@ -950,7 +1005,23 @@ namespace DataAnalysisSoftware
             PedIndMask = PedIndMask >> 8;
             PiBin = Convert.ToString(PedIndMask, 2).PadLeft(16, '0');
             pvalue = Convert.ToInt32(PiBin, 2);
+        }
 
+        public void CalculateIntensityFactory()
+        {
+            FTP = Convert.ToInt32(txtFTPBox.Text);
+            IF = NP / FTP;
+            labelif.Text = IF.ToString("0.00");
+            labelif.Visible = true;
+            //label
+        }
+
+        public void calculateTSS()
+        {
+            double TSS;
+            TSS = (timesec * NP * IF) / (FTP * 3600) * 100;
+            labeltss.Text = TSS.ToString("0.00");
+            labeltss.Visible = true;
         }
     }
 }
