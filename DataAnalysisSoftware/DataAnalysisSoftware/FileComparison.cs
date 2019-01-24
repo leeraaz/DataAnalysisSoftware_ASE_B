@@ -46,8 +46,12 @@ namespace DataAnalysisSoftware
 
         private void btnCompare_Click(object sender, EventArgs e)
         {
-            ComparedData cd = new ComparedData(filenames);
-            cd.Show();
+            try
+            {
+                ComparedData cd = new ComparedData(filenames);
+                cd.Show();
+            }
+            catch (Exception) { }
         }
 
         private void btnFileOne_Click(object sender, EventArgs e)

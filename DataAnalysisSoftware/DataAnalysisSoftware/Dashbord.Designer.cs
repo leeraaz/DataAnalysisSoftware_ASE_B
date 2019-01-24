@@ -100,6 +100,7 @@
             this.lblIntFactor = new System.Windows.Forms.Label();
             this.labelif = new System.Windows.Forms.Label();
             this.labelnp = new System.Windows.Forms.Label();
+            this.btnFileCompare = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataView)).BeginInit();
             this.groupHeading.SuspendLayout();
@@ -583,7 +584,7 @@
             // 
             this.btnSelectedData.Location = new System.Drawing.Point(174, 27);
             this.btnSelectedData.Name = "btnSelectedData";
-            this.btnSelectedData.Size = new System.Drawing.Size(75, 23);
+            this.btnSelectedData.Size = new System.Drawing.Size(159, 23);
             this.btnSelectedData.TabIndex = 13;
             this.btnSelectedData.Text = "Calculate Selected Data.";
             this.btnSelectedData.UseVisualStyleBackColor = true;
@@ -751,11 +752,22 @@
             this.labelnp.Text = "0.00";
             this.labelnp.Visible = false;
             // 
+            // btnFileCompare
+            // 
+            this.btnFileCompare.Location = new System.Drawing.Point(339, 27);
+            this.btnFileCompare.Name = "btnFileCompare";
+            this.btnFileCompare.Size = new System.Drawing.Size(159, 23);
+            this.btnFileCompare.TabIndex = 63;
+            this.btnFileCompare.Text = "File Comparison";
+            this.btnFileCompare.UseVisualStyleBackColor = true;
+            this.btnFileCompare.Click += new System.EventHandler(this.btnFileCompare_Click);
+            // 
             // Dashbord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1179, 629);
+            this.Controls.Add(this.btnFileCompare);
             this.Controls.Add(this.grpBoxAdvMetrics);
             this.Controls.Add(this.btnSelectedData);
             this.Controls.Add(this.groupBox1);
@@ -860,6 +872,7 @@
         private System.Windows.Forms.Label lblIntFactor;
         private System.Windows.Forms.Label labelif;
         private System.Windows.Forms.Label labelnp;
+        private System.Windows.Forms.Button btnFileCompare;
     }
 }
 

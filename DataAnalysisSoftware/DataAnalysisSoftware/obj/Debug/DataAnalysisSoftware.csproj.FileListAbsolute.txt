@@ -11,3 +11,10 @@ F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\bin\D
 F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.graphImage.resources
 F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.About.resources
 F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.SelectedData.resources
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\bin\Debug\MetroFramework.dll
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.FileComparison.resources
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\bin\Debug\MetroFramework.Design.dll
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\bin\Debug\MetroFramework.Fonts.dll
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.ComparedData.resources
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.ChunkData.resources
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.ChunkSelection.resources

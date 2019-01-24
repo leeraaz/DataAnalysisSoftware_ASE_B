@@ -32,6 +32,9 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.zedGraphControl1 = new ZedGraph.ZedGraphControl();
             this.lblCombo = new System.Windows.Forms.ComboBox();
+            this.txtInterval = new System.Windows.Forms.TextBox();
+            this.btnMinus = new System.Windows.Forms.Button();
+            this.btnPlus = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnClose
@@ -76,11 +79,41 @@
             this.lblCombo.Text = "None";
             this.lblCombo.SelectedIndexChanged += new System.EventHandler(this.lblCombo_SelectedIndexChanged);
             // 
+            // txtInterval
+            // 
+            this.txtInterval.Location = new System.Drawing.Point(702, 131);
+            this.txtInterval.Name = "txtInterval";
+            this.txtInterval.Size = new System.Drawing.Size(100, 20);
+            this.txtInterval.TabIndex = 11;
+            // 
+            // btnMinus
+            // 
+            this.btnMinus.Location = new System.Drawing.Point(702, 169);
+            this.btnMinus.Name = "btnMinus";
+            this.btnMinus.Size = new System.Drawing.Size(43, 23);
+            this.btnMinus.TabIndex = 12;
+            this.btnMinus.Text = "<<";
+            this.btnMinus.UseVisualStyleBackColor = true;
+            this.btnMinus.Click += new System.EventHandler(this.btnMinus_Click);
+            // 
+            // btnPlus
+            // 
+            this.btnPlus.Location = new System.Drawing.Point(759, 169);
+            this.btnPlus.Name = "btnPlus";
+            this.btnPlus.Size = new System.Drawing.Size(43, 23);
+            this.btnPlus.TabIndex = 13;
+            this.btnPlus.Text = ">>";
+            this.btnPlus.UseVisualStyleBackColor = true;
+            this.btnPlus.Click += new System.EventHandler(this.btnPlus_Click);
+            // 
             // graphImage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 367);
+            this.Controls.Add(this.btnPlus);
+            this.Controls.Add(this.btnMinus);
+            this.Controls.Add(this.txtInterval);
             this.Controls.Add(this.lblCombo);
             this.Controls.Add(this.zedGraphControl1);
             this.Controls.Add(this.btnClose);
@@ -88,6 +121,7 @@
             this.Text = "graphImage";
             this.Load += new System.EventHandler(this.graphImage_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -95,5 +129,8 @@
         public System.Windows.Forms.Button btnClose;
         private ZedGraph.ZedGraphControl zedGraphControl1;
         private System.Windows.Forms.ComboBox lblCombo;
+        private System.Windows.Forms.TextBox txtInterval;
+        private System.Windows.Forms.Button btnMinus;
+        private System.Windows.Forms.Button btnPlus;
     }
 }

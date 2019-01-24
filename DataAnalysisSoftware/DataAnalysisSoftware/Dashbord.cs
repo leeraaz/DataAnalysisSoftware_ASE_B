@@ -164,6 +164,12 @@ namespace DataAnalysisSoftware
             //}
         }
 
+        private void btnFileCompare_Click(object sender, EventArgs e)
+        {
+            FileComparison filecompare = new FileComparison();
+            filecompare.Show();
+        }
+
         private void btnLoad_Click(object sender, EventArgs e)
         {
             try
@@ -272,15 +278,15 @@ namespace DataAnalysisSoftware
                     string[] arrayLength = length.Split('=');
                     foreach (string itemLength in arrayLength)
                     {
-                        //lblLength.Text = "Length: " + itemLength;
+                        lblLength.Text = "Length: " + itemLength;
                         int LengthHR = 0;
-                        Int32.TryParse(itemLength, out LengthHR);
+                        Int32.TryParse(itemLength + 7, out LengthHR);
                         int LengthMin = 0;
-                        Int32.TryParse(itemLength, out LengthMin);
+                        Int32.TryParse(itemLength + 10, out LengthMin);
                         double LengthSec = 0;
-                        Double.TryParse(itemLength, out LengthSec);
-                        lblLength.Text = "Length: " + LengthHR + ":" + LengthMin + ":" + LengthSec;
-                        timesec = ((LengthHR * 3600) + (LengthMin * 60) + LengthSec);
+                        Double.TryParse(itemLength + 13, out LengthSec);
+                        //lblLength.Text = "Length: " + LengthHR + ":" + LengthMin + ":" + LengthSec;
+                        timesec = ((LengthHR * 3600) + (LengthMin * 60) + (LengthSec));
                     }
                 }
                 if (fileData.Contains("Interval"))
@@ -686,6 +692,42 @@ namespace DataAnalysisSoftware
                 labelnp.Text = NP.ToString("0 watts");
                 labelnp.Visible = true;
             }
+
+
+            left = pedindex = right = 0;
+            Larray = new double[dataView.Rows.Count];
+            Rarray = new double[dataView.Rows.Count];
+            PIarray = new double[dataView.Rows.Count];
+            for (int i = 0; i < dataView.Rows.Count; ++i)
+            {
+                if (dataView.Rows[i].Cells[6].Value != null)
+                {
+
+                    PowerB = Convert.ToInt64(dataView.Rows[i].Cells[6].Value);
+                    pedalBal(PowerB);
+                    Larray[i] = lvalue;
+                    left += lvalue;
+                    Rarray[i] = rvalue;
+                    right += rvalue;
+                    PIarray[i] = pvalue;
+                    pedindex += pvalue;
+                }
+            }
+            rows = dataView.Rows.Count;
+            left = Math.Round(left, 2);
+            double averLeft = left / rows;
+            averLeft = Math.Round(averLeft, 2);
+            PBLeft.Text = averLeft.ToString();
+
+            right = Math.Round(right, 2);
+            double averRight = right / rows;
+            averRight = Math.Round(averRight, 2);
+            PBRight.Text = averRight.ToString();
+
+            pedindex = Math.Round(pedindex, 2);
+            double averpedInd = pedindex / rows;
+            averpedInd = Math.Round(averpedInd, 2);
+            PILabel.Text = averpedInd.ToString();
         }
 
         private void SummaryCalculation()
@@ -1013,15 +1055,16 @@ namespace DataAnalysisSoftware
             IF = NP / FTP;
             labelif.Text = IF.ToString("0.00");
             labelif.Visible = true;
-            //label
-        }
 
-        public void calculateTSS()
-        {
             double TSS;
             TSS = (timesec * NP * IF) / (FTP * 3600) * 100;
             labeltss.Text = TSS.ToString("0.00");
             labeltss.Visible = true;
+        }
+
+        public void calculateTSS()
+        {
+            
         }
     }
 }

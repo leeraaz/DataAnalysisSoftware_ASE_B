@@ -83,6 +83,8 @@
             this.PIS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lrds = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblFileTwoData = new MetroFramework.Controls.MetroLabel();
+            this.lblFileOneData = new MetroFramework.Controls.MetroLabel();
             this.metroPanel4 = new MetroFramework.Controls.MetroPanel();
             this.maxaf2pm = new System.Windows.Forms.Label();
             this.avgaf2pm = new System.Windows.Forms.Label();
@@ -145,8 +147,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblFileOneData = new MetroFramework.Controls.MetroLabel();
-            this.lblFileTwoData = new MetroFramework.Controls.MetroLabel();
             this.HRDATA.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.metroPanel2.SuspendLayout();
@@ -536,6 +536,7 @@
             this.dataGridViewfile2.Name = "dataGridViewfile2";
             this.dataGridViewfile2.Size = new System.Drawing.Size(596, 388);
             this.dataGridViewfile2.TabIndex = 0;
+            this.dataGridViewfile2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridViewfile2_MouseUp);
             // 
             // column1
             // 
@@ -599,6 +600,7 @@
             this.dataGridViewfile1.Name = "dataGridViewfile1";
             this.dataGridViewfile1.Size = new System.Drawing.Size(589, 388);
             this.dataGridViewfile1.TabIndex = 0;
+            this.dataGridViewfile1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridViewfile1_MouseUp);
             // 
             // TimeInterval
             // 
@@ -658,6 +660,24 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Summary";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lblFileTwoData
+            // 
+            this.lblFileTwoData.AutoSize = true;
+            this.lblFileTwoData.Location = new System.Drawing.Point(647, 7);
+            this.lblFileTwoData.Name = "lblFileTwoData";
+            this.lblFileTwoData.Size = new System.Drawing.Size(87, 19);
+            this.lblFileTwoData.TabIndex = 3;
+            this.lblFileTwoData.Text = "File Two Data";
+            // 
+            // lblFileOneData
+            // 
+            this.lblFileOneData.AutoSize = true;
+            this.lblFileOneData.Location = new System.Drawing.Point(35, 7);
+            this.lblFileOneData.Name = "lblFileOneData";
+            this.lblFileOneData.Size = new System.Drawing.Size(89, 19);
+            this.lblFileOneData.TabIndex = 2;
+            this.lblFileOneData.Text = "File One Data";
             // 
             // metroPanel4
             // 
@@ -1385,24 +1405,6 @@
             this.label1.Size = new System.Drawing.Size(205, 24);
             this.label1.TabIndex = 2;
             this.label1.Text = "Total Distance Covered";
-            // 
-            // lblFileOneData
-            // 
-            this.lblFileOneData.AutoSize = true;
-            this.lblFileOneData.Location = new System.Drawing.Point(35, 7);
-            this.lblFileOneData.Name = "lblFileOneData";
-            this.lblFileOneData.Size = new System.Drawing.Size(89, 19);
-            this.lblFileOneData.TabIndex = 2;
-            this.lblFileOneData.Text = "File One Data";
-            // 
-            // lblFileTwoData
-            // 
-            this.lblFileTwoData.AutoSize = true;
-            this.lblFileTwoData.Location = new System.Drawing.Point(647, 7);
-            this.lblFileTwoData.Name = "lblFileTwoData";
-            this.lblFileTwoData.Size = new System.Drawing.Size(87, 19);
-            this.lblFileTwoData.TabIndex = 3;
-            this.lblFileTwoData.Text = "File Two Data";
             // 
             // ComparedData
             // 

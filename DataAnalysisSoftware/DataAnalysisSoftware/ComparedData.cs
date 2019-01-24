@@ -113,7 +113,7 @@ namespace DataAnalysisSoftware
 
                     i++;
                 }
-                // chunkDataSummary();
+                // ChunkData summary
                 calculate(fileNumber, hr, sp, cd, al, po);
             }
             catch (Exception ex)
@@ -128,14 +128,14 @@ namespace DataAnalysisSoftware
             {
                 grdViewSelect();
                 int chunkDivision = 1;
-                //using (var form = new ChunkData())
-                //{
-                //    var result = form.ShowDialog();
-                //    if (result == DialogResult.OK)
-                //    {
-                //        chunkDivision = form.chunkGet;
-                //    }
-                //}
+                using (var form = new ChunkSelection())
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        chunkDivision = form.chunkGet;
+                    }
+                }
 
                 int grdCount = dataGridViewfile1.SelectedRows.Count;
 
@@ -158,8 +158,8 @@ namespace DataAnalysisSoftware
                     i++;
                 }
 
-                //ChunkDataSummary ck = new ChunkDataSummary(chunkDivision, hr, sp, cd, al, po);
-                //ck.Show();
+                ChunkData chunkedData = new ChunkData(chunkDivision, hr, sp, cd, al, po);
+                chunkedData.Show();
             }
             catch (Exception ex)
             {
@@ -180,18 +180,6 @@ namespace DataAnalysisSoftware
             int i = 0;
             try
             {
-                //foreach (DataGridViewRow row in dataGridViewfile1.Rows)
-                //{
-                //hr[i] = Convert.ToDouble(row.Cells[1].Value);
-                //sp[i] = Convert.ToDouble(row.Cells[2].Value);
-                //cd[i] = Convert.ToDouble(row.Cells[3].Value);
-                //al[i] = Convert.ToDouble(row.Cells[4].Value);
-                //po[i] = Convert.ToDouble(row.Cells[5].Value);
-
-                //  i++;
-                //}
-
-
                 double speedTotal = 0;
                 double heartRateTotal = 0;
                 double powerTotal = 0;
@@ -411,8 +399,6 @@ namespace DataAnalysisSoftware
         {
             try
             {
-                // int chunkValue = new ChunkData().sendChunkValue();
-
                 int chunkStart = 0;
                 int countVal = 0;
                 int countHR = 0;
@@ -506,14 +492,14 @@ namespace DataAnalysisSoftware
             {
                 grdViewSelect();
                 int chunkDivision = 1;
-                //using (var form = new ChunkData())
-                //{
-                //    var result = form.ShowDialog();
-                //    if (result == DialogResult.OK)
-                //    {
-                //        chunkDivision = form.chunkGet;
-                //    }
-                //}
+                using (var form = new ChunkSelection())
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        chunkDivision = form.chunkGet;
+                    }
+                }
                 int grdCount = dataGridViewfile1.SelectedRows.Count;
 
                 double[] hr = new double[grdCount];
@@ -535,8 +521,8 @@ namespace DataAnalysisSoftware
                     i++;
                 }
 
-                //ChunkDataSummary ck = new ChunkDataSummary(chunkDivision, hr, sp, cd, al, po);
-                //ck.Show();
+                ChunkData chunkData = new ChunkData(chunkDivision, hr, sp, cd, al, po);
+                chunkData.Show();
             }
             catch (Exception ex)
             {
