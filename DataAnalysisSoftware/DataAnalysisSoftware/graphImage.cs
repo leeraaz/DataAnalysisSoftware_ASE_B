@@ -13,7 +13,7 @@ namespace DataAnalysisSoftware
 {
     public partial class graphImage : Form
     {
-        int[] intervals = new int[20] { 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800 };
+        int[] intervals = new int[20] { 0, 150, 0, 300, 0, 450, 0, 600, 0, 750, 0, 900, 0, 1050, 0, 1200, 0, 1450, 0, 1600 };
         int intcounter = 0;
         public graphImage()
         {
@@ -52,7 +52,7 @@ namespace DataAnalysisSoftware
             PointPairList power = new PointPairList();
 
             myPane.XAxis.Scale.Min = 1;
-            myPane.XAxis.Scale.Max = 4000;
+            myPane.XAxis.Scale.Max = 1000;
 
             myPane.YAxis.Scale.Min = 1;
             myPane.YAxis.Scale.Max = 650;
@@ -93,7 +93,6 @@ namespace DataAnalysisSoftware
             pwCurve.Line.SmoothTension = 1f;
 
             zedGraphControl1.AxisChange();
-
         }
 
         private void lblCombo_SelectedIndexChanged(object sender, EventArgs e)

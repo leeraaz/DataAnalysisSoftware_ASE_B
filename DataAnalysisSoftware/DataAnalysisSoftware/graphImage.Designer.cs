@@ -35,11 +35,13 @@
             this.txtInterval = new System.Windows.Forms.TextBox();
             this.btnMinus = new System.Windows.Forms.Button();
             this.btnPlus = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(682, 12);
+            this.btnClose.Location = new System.Drawing.Point(709, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(121, 23);
             this.btnClose.TabIndex = 8;
@@ -72,45 +74,68 @@
             "Speed",
             "Cadence",
             "Power"});
-            this.lblCombo.Location = new System.Drawing.Point(682, 41);
+            this.lblCombo.Location = new System.Drawing.Point(682, 75);
             this.lblCombo.Name = "lblCombo";
-            this.lblCombo.Size = new System.Drawing.Size(121, 21);
+            this.lblCombo.Size = new System.Drawing.Size(172, 21);
             this.lblCombo.TabIndex = 10;
             this.lblCombo.Text = "None";
             this.lblCombo.SelectedIndexChanged += new System.EventHandler(this.lblCombo_SelectedIndexChanged);
             // 
             // txtInterval
             // 
-            this.txtInterval.Location = new System.Drawing.Point(702, 131);
+            this.txtInterval.Location = new System.Drawing.Point(806, 131);
             this.txtInterval.Name = "txtInterval";
-            this.txtInterval.Size = new System.Drawing.Size(100, 20);
+            this.txtInterval.ReadOnly = true;
+            this.txtInterval.Size = new System.Drawing.Size(48, 20);
             this.txtInterval.TabIndex = 11;
             // 
             // btnMinus
             // 
-            this.btnMinus.Location = new System.Drawing.Point(702, 169);
+            this.btnMinus.Location = new System.Drawing.Point(682, 169);
             this.btnMinus.Name = "btnMinus";
-            this.btnMinus.Size = new System.Drawing.Size(43, 23);
+            this.btnMinus.Size = new System.Drawing.Size(68, 23);
             this.btnMinus.TabIndex = 12;
-            this.btnMinus.Text = "<<";
+            this.btnMinus.Text = "Previous";
             this.btnMinus.UseVisualStyleBackColor = true;
             this.btnMinus.Click += new System.EventHandler(this.btnMinus_Click);
             // 
             // btnPlus
             // 
-            this.btnPlus.Location = new System.Drawing.Point(759, 169);
+            this.btnPlus.Location = new System.Drawing.Point(786, 169);
             this.btnPlus.Name = "btnPlus";
-            this.btnPlus.Size = new System.Drawing.Size(43, 23);
+            this.btnPlus.Size = new System.Drawing.Size(68, 23);
             this.btnPlus.TabIndex = 13;
-            this.btnPlus.Text = ">>";
+            this.btnPlus.Text = "Next";
             this.btnPlus.UseVisualStyleBackColor = true;
             this.btnPlus.Click += new System.EventHandler(this.btnPlus_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(682, 131);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(108, 20);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Interval Picker";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(680, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(174, 20);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Select for Single Graph";
             // 
             // graphImage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(820, 367);
+            this.ClientSize = new System.Drawing.Size(866, 367);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnPlus);
             this.Controls.Add(this.btnMinus);
             this.Controls.Add(this.txtInterval);
@@ -132,5 +157,7 @@
         private System.Windows.Forms.TextBox txtInterval;
         private System.Windows.Forms.Button btnMinus;
         private System.Windows.Forms.Button btnPlus;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

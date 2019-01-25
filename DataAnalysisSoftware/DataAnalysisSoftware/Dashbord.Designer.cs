@@ -626,7 +626,7 @@
             // PILabel
             // 
             this.PILabel.AutoSize = true;
-            this.PILabel.Location = new System.Drawing.Point(70, 215);
+            this.PILabel.Location = new System.Drawing.Point(196, 215);
             this.PILabel.Name = "PILabel";
             this.PILabel.Size = new System.Drawing.Size(28, 13);
             this.PILabel.TabIndex = 68;
@@ -644,7 +644,7 @@
             // PBRight
             // 
             this.PBRight.AutoSize = true;
-            this.PBRight.Location = new System.Drawing.Point(119, 191);
+            this.PBRight.Location = new System.Drawing.Point(196, 191);
             this.PBRight.Name = "PBRight";
             this.PBRight.Size = new System.Drawing.Size(28, 13);
             this.PBRight.TabIndex = 66;
@@ -662,7 +662,7 @@
             // PBLeft
             // 
             this.PBLeft.AutoSize = true;
-            this.PBLeft.Location = new System.Drawing.Point(119, 166);
+            this.PBLeft.Location = new System.Drawing.Point(196, 166);
             this.PBLeft.Name = "PBLeft";
             this.PBLeft.Size = new System.Drawing.Size(28, 13);
             this.PBLeft.TabIndex = 64;
@@ -673,9 +673,9 @@
             this.lblheading.AutoSize = true;
             this.lblheading.Location = new System.Drawing.Point(6, 20);
             this.lblheading.Name = "lblheading";
-            this.lblheading.Size = new System.Drawing.Size(232, 13);
+            this.lblheading.Size = new System.Drawing.Size(181, 13);
             this.lblheading.TabIndex = 62;
-            this.lblheading.Text = "Enter your Functional Threshold Power in Watts";
+            this.lblheading.Text = "Functional Threshold Power in Watts";
             // 
             // lblTSS
             // 
@@ -690,34 +690,32 @@
             // 
             this.txtFTPBox.Location = new System.Drawing.Point(6, 46);
             this.txtFTPBox.Name = "txtFTPBox";
-            this.txtFTPBox.Size = new System.Drawing.Size(100, 20);
+            this.txtFTPBox.Size = new System.Drawing.Size(144, 20);
             this.txtFTPBox.TabIndex = 53;
-            this.txtFTPBox.Text = "Enter FTP";
             // 
             // btnCalculateTSS
             // 
-            this.btnCalculateTSS.Location = new System.Drawing.Point(122, 43);
+            this.btnCalculateTSS.Location = new System.Drawing.Point(156, 44);
             this.btnCalculateTSS.Name = "btnCalculateTSS";
             this.btnCalculateTSS.Size = new System.Drawing.Size(92, 23);
             this.btnCalculateTSS.TabIndex = 54;
-            this.btnCalculateTSS.Text = "Calculate TSS";
+            this.btnCalculateTSS.Text = "Calculate";
             this.btnCalculateTSS.UseVisualStyleBackColor = true;
             this.btnCalculateTSS.Click += new System.EventHandler(this.btnCalculateTSS_Click);
             // 
             // labeltss
             // 
             this.labeltss.AutoSize = true;
-            this.labeltss.Location = new System.Drawing.Point(119, 80);
+            this.labeltss.Location = new System.Drawing.Point(196, 80);
             this.labeltss.Name = "labeltss";
             this.labeltss.Size = new System.Drawing.Size(28, 13);
             this.labeltss.TabIndex = 60;
             this.labeltss.Text = "0.00";
-            this.labeltss.Visible = false;
             // 
             // lblNormalizedPwr
             // 
             this.lblNormalizedPwr.AutoSize = true;
-            this.lblNormalizedPwr.Location = new System.Drawing.Point(6, 109);
+            this.lblNormalizedPwr.Location = new System.Drawing.Point(6, 137);
             this.lblNormalizedPwr.Name = "lblNormalizedPwr";
             this.lblNormalizedPwr.Size = new System.Drawing.Size(95, 13);
             this.lblNormalizedPwr.TabIndex = 55;
@@ -726,7 +724,7 @@
             // lblIntFactor
             // 
             this.lblIntFactor.AutoSize = true;
-            this.lblIntFactor.Location = new System.Drawing.Point(6, 139);
+            this.lblIntFactor.Location = new System.Drawing.Point(6, 110);
             this.lblIntFactor.Name = "lblIntFactor";
             this.lblIntFactor.Size = new System.Drawing.Size(82, 13);
             this.lblIntFactor.TabIndex = 56;
@@ -735,22 +733,20 @@
             // labelif
             // 
             this.labelif.AutoSize = true;
-            this.labelif.Location = new System.Drawing.Point(90, 139);
+            this.labelif.Location = new System.Drawing.Point(196, 110);
             this.labelif.Name = "labelif";
             this.labelif.Size = new System.Drawing.Size(28, 13);
             this.labelif.TabIndex = 58;
             this.labelif.Text = "0.00";
-            this.labelif.Visible = false;
             // 
             // labelnp
             // 
             this.labelnp.AutoSize = true;
-            this.labelnp.Location = new System.Drawing.Point(100, 109);
+            this.labelnp.Location = new System.Drawing.Point(196, 136);
             this.labelnp.Name = "labelnp";
             this.labelnp.Size = new System.Drawing.Size(28, 13);
             this.labelnp.TabIndex = 57;
             this.labelnp.Text = "0.00";
-            this.labelnp.Visible = false;
             // 
             // btnFileCompare
             // 

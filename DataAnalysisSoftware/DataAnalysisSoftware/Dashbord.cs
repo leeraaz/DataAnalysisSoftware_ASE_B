@@ -279,12 +279,10 @@ namespace DataAnalysisSoftware
                     foreach (string itemLength in arrayLength)
                     {
                         lblLength.Text = "Length: " + itemLength;
-                        int LengthHR = 0;
-                        Int32.TryParse(itemLength + 7, out LengthHR);
-                        int LengthMin = 0;
-                        Int32.TryParse(itemLength + 10, out LengthMin);
-                        double LengthSec = 0;
-                        Double.TryParse(itemLength + 13, out LengthSec);
+                        int LengthHR = itemLength.Count();
+                        
+                        int LengthMin = itemLength.Count();
+                        double LengthSec = itemLength.Count();
                         //lblLength.Text = "Length: " + LengthHR + ":" + LengthMin + ":" + LengthSec;
                         timesec = ((LengthHR * 3600) + (LengthMin * 60) + (LengthSec));
                     }
@@ -932,6 +930,7 @@ namespace DataAnalysisSoftware
 
             CreateGraph2(selectData.selectedZedGraph);
             selectData.Show();
+            FindIntervals();
         }
 
         private void CreateGraph2(ZedGraphControl graph2)
@@ -1034,6 +1033,7 @@ namespace DataAnalysisSoftware
 
             graph2.AxisChange();
             graph2.Invalidate();
+            FindIntervals();
         }
         
         public void pedalBal(long value)
@@ -1056,15 +1056,54 @@ namespace DataAnalysisSoftware
             labelif.Text = IF.ToString("0.00");
             labelif.Visible = true;
 
+        }
+
+        public void calculateTSS()
+        {
             double TSS;
             TSS = (timesec * NP * IF) / (FTP * 3600) * 100;
             labeltss.Text = TSS.ToString("0.00");
             labeltss.Visible = true;
         }
 
-        public void calculateTSS()
+        public void FindIntervals()
         {
-            
+            bool Over = false;
+            int loc = 0;
+            int timer = 0;
+            int power;
+            for (int i = 0; i < dataView.Rows.Count; ++i)
+            {
+                //Finds row number where is power over 150
+                power = Convert.ToInt32(dataView.Rows[i].Cells[6].Value);
+                if (power > 150 && Over == false)
+                {
+                    if (loc < 20)
+                    {
+                        intervals[loc] = i;
+                        loc++;
+                        Over = true;
+                    }
+                }
+                if (power < 150 && Over == true)
+                {
+                    if (timer > 29)
+                    {
+                        intervals[loc] = i;
+                    }
+                    if (timer < 29)
+                    {
+                        loc = loc - 2;
+                    }
+                    loc++;
+                    Over = false;
+                    timer = 0;
+                }
+                if (Over)
+                {
+                    timer++;
+                }
+            }
         }
     }
 }
