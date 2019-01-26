@@ -81,8 +81,30 @@ namespace DataAnalysisSoftware
         public double lvalue, pvalue, rvalue;
         double left, pedindex, right;
         public double rows;
-        
 
+
+        int timeArrCount = 0;
+        public static List<TimeSpan> totalTime = new List<TimeSpan>();
+        TimeSpan startTime, endTime;
+
+        public static double ftpGlobal { get; set; }
+        public static double ifGlobal { get; set; }
+        public static double tssGlobal { get; set; }
+        public static double avgPowerGlobal { get; set; }
+        public static double normalizationPowerGlobal { get; set; }
+
+        public static List<List<double>> intervalValues = new List<List<double>>();
+        public static List<double> powerData = new List<double>(); // used in interval detection as well 
+        public static List<double> intervalDetectionData = new List<double>(); // interval detection 
+        public static List<double> powerInterval = new List<double>(); // interval detection 
+        public static double threholdValueGlobal;  // interval detection 
+        List<double> powerDataSlt = new List<double>();
+        double movingAverageCount;
+
+        List<double> movAvgPow4 = new List<double>();
+        List<double> movAvg = new List<double>();
+        List<double> movAvgPow4Slt = new List<double>();
+        List<double> movAvgSlt = new List<double>();
         //public GraphPane GraphPane;
         public GraphPane GraphPane2;
 
@@ -123,45 +145,42 @@ namespace DataAnalysisSoftware
 
         private void monthlyCalender_DateChanged(object sender, DateRangeEventArgs e)
         {
-            //FileNameList.Items.Clear();
-            //FileNameList.Items.Add(monthlyCalender.SelectionStart.ToString());
-            //dateCalc = monthlyCalender.SelectionStart.ToString();
+            FileNameList.Items.Clear();
+            FileNameList.Items.Add(monthlyCalender.SelectionStart.ToString());
+            dateCalc = monthlyCalender.SelectionStart.ToString();
 
-            //// file value start 
-
-
-
-            //foreach (string itemData in fdata)
-            //{
-            //    string value = itemData;
+            // file value start 
+            foreach (string itemData in fdata)
+            {
+                string value = itemData;
 
 
-            //    StreamReader fileReaderFolder = new StreamReader(value);
+                StreamReader fileReaderFolder = new StreamReader(value);
 
 
-            //    while (!fileReaderFolder.EndOfStream)
-            //    {
-            //        fileData = fileReaderFolder.ReadLine();
-            //        if (fileData.Contains("Date"))
-            //        {
-            //            string startTime = fileData;
-            //            string arraStartTime = startTime.Split('=').Last();
-            //            string one = "";
-            //            //var date = "11252017";
-            //            var date = DateTime.ParseExact(arraStartTime, "yyyyMMdd", CultureInfo.InvariantCulture);
+                while (!fileReaderFolder.EndOfStream)
+                {
+                    fileData = fileReaderFolder.ReadLine();
+                    if (fileData.Contains("Date"))
+                    {
+                        string startTime = fileData;
+                        string arraStartTime = startTime.Split('=').Last();
+                        string one = "";
+                        //var date = "11252017";
+                        var date = DateTime.ParseExact(arraStartTime, "yyyyMMdd", CultureInfo.InvariantCulture);
 
-            //            if (date == DateTime.Parse(dateCalc))
-            //            {
-            //                FileNameList.ClearSelected();
-            //                FileNameList.Items.Add(itemData.Split('\\').Last());
+                        if (date == DateTime.Parse(dateCalc))
+                        {
+                            FileNameList.ClearSelected();
+                            FileNameList.Items.Add(itemData.Split('\\').Last());
 
-            //                path = itemData;
+                            path = itemData;
 
-            //                FileNameList.Update();
-            //            }
-            //        }
-            //    }
-            //}
+                            FileNameList.Update();
+                        }
+                    }
+                }
+            }
         }
 
         private void btnFileCompare_Click(object sender, EventArgs e)
@@ -212,6 +231,17 @@ namespace DataAnalysisSoftware
             }
         }
 
+        private void btnIntervalDetecion_Click(object sender, EventArgs e)
+        {
+            IntervalList intList = new IntervalList();
+            intList.Show(); 
+        }
+
+        private void calenderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            monthlyCalender.Visible = true;
+        }
+
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             About ab = new About();
@@ -253,16 +283,6 @@ namespace DataAnalysisSoftware
                         startTimeValue = item;
                     }
                 }
-                if (fileData.Contains("Interval"))
-                {
-                    string intervals = fileData;
-                    string[] arrayInterval = intervals.Split('=');
-                    foreach (string itemInterval in arrayInterval)
-                    {
-                        intervals = itemInterval;
-                        //lblInterval.Text = "Interval: " + itemInterval;
-                    }
-                }
                 if (fileData.Contains("Weight"))
                 {
                     string weight = fileData;
@@ -285,6 +305,7 @@ namespace DataAnalysisSoftware
                         double LengthSec = itemLength.Count();
                         //lblLength.Text = "Length: " + LengthHR + ":" + LengthMin + ":" + LengthSec;
                         timesec = ((LengthHR * 3600) + (LengthMin * 60) + (LengthSec));
+                        lengthValue = itemLength;
                     }
                 }
                 if (fileData.Contains("Interval"))
@@ -294,7 +315,7 @@ namespace DataAnalysisSoftware
                     foreach (string itemIntervalss in arrayLength)
                     {
                         intervalValue = itemIntervalss;
-                        lblInterval.Text = "Interval: " + itemIntervalss;
+                        lblInterval.Text = "Interval: " + intervalValue;
                     }
                 }
                 if (fileData.Contains("Version"))
@@ -458,7 +479,11 @@ namespace DataAnalysisSoftware
                 }
             }
 
-            List<List<string>> filter = File.ReadLines(data).SkipWhile(line => line != "[HRData]").Skip(1).Select(line => line.Split().ToList()).ToList();
+            List<List<string>> filter = File.ReadLines(data)
+                                           .SkipWhile(line => line != "[HRData]")
+                                           .Skip(1)
+                                           .Select(line => line.Split().ToList())
+                                           .ToList();
 
             count = filter.Count();
 
@@ -491,6 +516,7 @@ namespace DataAnalysisSoftware
                 dataView.Rows.Add();
                 DateTime timer = DateTime.ParseExact(startTimeValue, "HH:mm:ss.FFF", CultureInfo.InvariantCulture);
                 dataView.Rows[x].Cells[0].Value = timer.AddSeconds(intervalTwo).TimeOfDay;
+                totalTime.Add(timer.AddSeconds(intervalTwo).TimeOfDay);
 
                 char[] smodeData = smode.ToCharArray();
                 char speed = smodeData[0];
@@ -550,9 +576,12 @@ namespace DataAnalysisSoftware
                             int index = a + j;
                             index %= value;
                             movingAverage30 += Convert.ToDouble(filter[x][index]);
-
                         }
                         movingAverage30 /= 30;
+
+                        double movAvgPow = Math.Pow(movingAverage30, 4);
+                        movAvgPow4.Add(movAvgPow);
+                        movAvg.Add(movingAverage30);
                     }
                 }
 
@@ -567,7 +596,7 @@ namespace DataAnalysisSoftware
                 }
                 else if (powerLRBalance == '0')
                 {
-                    dataView.Rows[x].Cells[5].Value = 0;
+                    dataView.Rows[x].Cells[6].Value = 0;
                 }
                 if (hrcc == '1')
                 {
@@ -605,9 +634,10 @@ namespace DataAnalysisSoftware
                     powerTotal += Convert.ToInt32(filter[x][5]);
                     //powerTotal = powerTotal + int.Parse(filter[x][5]);
                     averagePower = powerTotal / count;
-
+                    avgPowerGlobal = Math.Round(averagePower, 2);
                     //maximum power
                     arrayPower[x] = int.Parse(filter[x][5]);
+                    powerData.Add(Convert.ToDouble(filter[x][5]));
                 }
                 else
                 {
@@ -646,6 +676,63 @@ namespace DataAnalysisSoftware
                     {
                         minHeartRate = num;
                     }
+                }
+
+                movingAverageCount = movAvgPow4.Count();
+                if (movAvgPow4 != null)
+                {
+                    double movAvgPow4Sum = movAvgPow4.Sum();
+                    double powers = movAvgPow4Sum / movingAverageCount;
+                    double normalizationPower = Math.Round(Math.Pow(powers, 1.0 / 4), 2);
+                    double movingAverageSum = movAvg.Sum();
+                    double movingAverageValue = movingAverageSum / movingAverageCount; // moving average value 
+                                                                                // movingAverageGlobal = movingAverageValue;  
+                    normalizationPowerGlobal = normalizationPower;
+                    // ftp value 
+                    double ftpData = 0.95 * avgPowerGlobal;
+                    ftpGlobal = ftpData;
+                    ifGlobal = normalizationPowerGlobal / ftpGlobal;
+                    // for tss 
+                    
+                    startTime = totalTime.First();
+                    endTime = totalTime.Last();
+                    double startTimeSec = startTime.TotalSeconds;
+                    double endTimeSec = endTime.TotalSeconds;
+                    TimeSpan length = TimeSpan.Parse(lengthValue);
+                    double lengthToSec = length.TotalSeconds;
+                    double totalTimeDurationSec = lengthToSec;
+                    
+                    double tssGlobalOne = normalizationPowerGlobal * ifGlobal * totalTimeDurationSec; // sec value left  
+                    double tssGlobalTwo = ftpGlobal * 3600;
+                    double tssGlobalThree = tssGlobalOne / tssGlobalTwo;
+                    double tssGlobalFour = tssGlobalThree * 100;
+                    tssGlobal = tssGlobalFour;   // calculating tss 
+                                                 // MessageBox.Show(ftpData.ToString()); 
+
+                    // string totalTimeDuration = TimeSpan.FromDays(totalTimeDurationSec).ToString(@"dd\:hh\:mm");
+
+                    double threholdPowVal = Math.Round((105 * ftpGlobal) / 100, 2);
+                    // double thresholdPowResul = ftpGlobal - threholdPowVal;
+                    int intervalCountUp = 0;
+                    int intervalCountDown = 0;
+                    List<double> chk = new List<double>();
+                    
+                    for (int v = 0; v < powerData.Count; v++)
+                    {
+                        if (powerData[v] >= threholdPowVal)
+                        {
+                            intervalCountUp = v;
+                            chk.Add(v);
+
+                            // MessageBox.Show(intervalCountUp.ToString());
+                        }
+                        if (powerData[v] <= threholdPowVal)
+                        {
+                            intervalCountDown = v;
+                            chk.Add(v);
+                        }
+                    }
+                    intervalDetection();
                 }
 
                 //max power
@@ -1103,6 +1190,42 @@ namespace DataAnalysisSoftware
                 {
                     timer++;
                 }
+            }
+        }
+
+        public void intervalDetection()
+        {
+            double threholdPowVal = Math.Round((105 * ftpGlobal) / 100, 2);
+            int powerDown = 1;
+            int powerUp = 1;
+            try
+            {
+                foreach (double powerDataV in powerData)
+                {
+                    if (threholdPowVal >= powerDataV)
+                    {
+                        powerDown = 1;
+                    }
+                    if (powerDown == 1)
+                    {
+                        if (threholdPowVal <= powerDataV)
+                            powerUp = 1;
+                    }
+                    if (powerUp == 1)
+                    {
+                        intervalVal ++;
+                        powerUp = 0;
+                        powerDown = 0;
+                    }
+                    intervalDetectionData.Add(intervalVal);
+                    powerInterval.Add(powerDataV);
+                    threholdValueGlobal = threholdPowVal;
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Some errors ocurred \n " + ex);
             }
         }
     }

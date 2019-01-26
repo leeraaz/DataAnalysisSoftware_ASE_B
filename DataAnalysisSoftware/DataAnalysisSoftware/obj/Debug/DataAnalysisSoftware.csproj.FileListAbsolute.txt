@@ -18,3 +18,4 @@ F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\bin\D
 F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.ComparedData.resources
 F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.ChunkData.resources
 F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.ChunkSelection.resources
+F:\Softwarica\sem 6\ASE\practice\DataAnalysisSoftware\DataAnalysisSoftware\obj\Debug\DataAnalysisSoftware.IntervalList.resources

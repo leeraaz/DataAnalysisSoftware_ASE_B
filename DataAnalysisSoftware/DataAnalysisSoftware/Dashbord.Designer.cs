@@ -101,6 +101,9 @@
             this.labelif = new System.Windows.Forms.Label();
             this.labelnp = new System.Windows.Forms.Label();
             this.btnFileCompare = new System.Windows.Forms.Button();
+            this.btnIntervalDetecion = new System.Windows.Forms.Button();
+            this.calenderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.monthlyCalender = new System.Windows.Forms.MonthCalendar();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataView)).BeginInit();
             this.groupHeading.SuspendLayout();
@@ -144,6 +147,7 @@
             // 
             this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
+            this.calenderToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
             this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
@@ -152,13 +156,13 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -584,7 +588,7 @@
             // 
             this.btnSelectedData.Location = new System.Drawing.Point(174, 27);
             this.btnSelectedData.Name = "btnSelectedData";
-            this.btnSelectedData.Size = new System.Drawing.Size(159, 23);
+            this.btnSelectedData.Size = new System.Drawing.Size(145, 23);
             this.btnSelectedData.TabIndex = 13;
             this.btnSelectedData.Text = "Calculate Selected Data.";
             this.btnSelectedData.UseVisualStyleBackColor = true;
@@ -750,19 +754,46 @@
             // 
             // btnFileCompare
             // 
-            this.btnFileCompare.Location = new System.Drawing.Point(339, 27);
+            this.btnFileCompare.Location = new System.Drawing.Point(325, 27);
             this.btnFileCompare.Name = "btnFileCompare";
-            this.btnFileCompare.Size = new System.Drawing.Size(159, 23);
+            this.btnFileCompare.Size = new System.Drawing.Size(145, 23);
             this.btnFileCompare.TabIndex = 63;
             this.btnFileCompare.Text = "File Comparison";
             this.btnFileCompare.UseVisualStyleBackColor = true;
             this.btnFileCompare.Click += new System.EventHandler(this.btnFileCompare_Click);
+            // 
+            // btnIntervalDetecion
+            // 
+            this.btnIntervalDetecion.Location = new System.Drawing.Point(476, 27);
+            this.btnIntervalDetecion.Name = "btnIntervalDetecion";
+            this.btnIntervalDetecion.Size = new System.Drawing.Size(145, 23);
+            this.btnIntervalDetecion.TabIndex = 64;
+            this.btnIntervalDetecion.Text = "Interval Detection";
+            this.btnIntervalDetecion.UseVisualStyleBackColor = true;
+            this.btnIntervalDetecion.Click += new System.EventHandler(this.btnIntervalDetecion_Click);
+            // 
+            // calenderToolStripMenuItem
+            // 
+            this.calenderToolStripMenuItem.Name = "calenderToolStripMenuItem";
+            this.calenderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.calenderToolStripMenuItem.Text = "Calender";
+            this.calenderToolStripMenuItem.Click += new System.EventHandler(this.calenderToolStripMenuItem_Click);
+            // 
+            // monthlyCalender
+            // 
+            this.monthlyCalender.Location = new System.Drawing.Point(243, 66);
+            this.monthlyCalender.Name = "monthlyCalender";
+            this.monthlyCalender.TabIndex = 13;
+            this.monthlyCalender.Visible = false;
+            this.monthlyCalender.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthlyCalender_DateChanged);
             // 
             // Dashbord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1179, 629);
+            this.Controls.Add(this.monthlyCalender);
+            this.Controls.Add(this.btnIntervalDetecion);
             this.Controls.Add(this.btnFileCompare);
             this.Controls.Add(this.grpBoxAdvMetrics);
             this.Controls.Add(this.btnSelectedData);
@@ -869,6 +900,9 @@
         private System.Windows.Forms.Label labelif;
         private System.Windows.Forms.Label labelnp;
         private System.Windows.Forms.Button btnFileCompare;
+        private System.Windows.Forms.Button btnIntervalDetecion;
+        private System.Windows.Forms.ToolStripMenuItem calenderToolStripMenuItem;
+        private System.Windows.Forms.MonthCalendar monthlyCalender;
     }
 }
 
