@@ -59,9 +59,9 @@
             this.lblVersion.AutoSize = true;
             this.lblVersion.Location = new System.Drawing.Point(515, 257);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(81, 13);
+            this.lblVersion.Size = new System.Drawing.Size(87, 13);
             this.lblVersion.TabIndex = 2;
-            this.lblVersion.Text = "Version 1.0.010";
+            this.lblVersion.Text = "Version 1.1.5001";
             // 
             // printDialog1
             // 
@@ -69,12 +69,14 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(300, 76);
+            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox1.Location = new System.Drawing.Point(300, 71);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(112, 147);
+            this.richTextBox1.Size = new System.Drawing.Size(263, 163);
             this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "All Rights Preserved";
+            this.richTextBox1.Text = "Data Analysis Software\n\nAll Rights Preserved\n\nDesigned and developed by:\nLiraj Ma" +
+    "harjan\n2019\n";
             // 
             // About
             // 

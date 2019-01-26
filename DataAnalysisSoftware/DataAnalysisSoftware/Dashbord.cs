@@ -36,10 +36,8 @@ namespace DataAnalysisSoftware
         public static double totalDistance { get; set; }
         public static double totalDistanceMiles { get; set; }
         public static string smode { get; set; }
-        public DateTime SelectionStart { get; set; }
 
         string file_name, path;
-        //string file, getfilename;
         string dateCalc;
         string[] fdata;
 
@@ -93,19 +91,20 @@ namespace DataAnalysisSoftware
         public static double avgPowerGlobal { get; set; }
         public static double normalizationPowerGlobal { get; set; }
 
+
+        //Value decalaration for interval detections
         public static List<List<double>> intervalValues = new List<List<double>>();
         public static List<double> powerData = new List<double>(); // used in interval detection as well 
         public static List<double> intervalDetectionData = new List<double>(); // interval detection 
         public static List<double> powerInterval = new List<double>(); // interval detection 
         public static double threholdValueGlobal;  // interval detection 
         List<double> powerDataSlt = new List<double>();
-        double movingAverageCount;
-
-        List<double> movAvgPow4 = new List<double>();
+        double movingAverageCount;List<double> movAvgPow4 = new List<double>();
         List<double> movAvg = new List<double>();
         List<double> movAvgPow4Slt = new List<double>();
         List<double> movAvgSlt = new List<double>();
-        //public GraphPane GraphPane;
+
+        //Data Graph
         public GraphPane GraphPane2;
 
         int[] intervals = new int[20] { 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800, 0, 3800 };
@@ -115,9 +114,9 @@ namespace DataAnalysisSoftware
         public static double[] graphHeartRate { get; set; }
         public static double[] graphSpeed { get; set; }
         public static double[] graphCadence { get; set; }
-
         public static double[] graphAltitude { get; set; }
 
+        //Selecting the file that need to be viewed.
         private void FileNameList_MouseClick(object sender, MouseEventArgs e)
         {
             string fileName = FileNameList.SelectedItem.ToString();
@@ -143,6 +142,7 @@ namespace DataAnalysisSoftware
             calculateTSS();
         }
 
+        //Monthly calaender...
         private void monthlyCalender_DateChanged(object sender, DateRangeEventArgs e)
         {
             FileNameList.Items.Clear();
@@ -183,12 +183,14 @@ namespace DataAnalysisSoftware
             }
         }
 
+        //Button action for opening the FileComparison form.
         private void btnFileCompare_Click(object sender, EventArgs e)
         {
             FileComparison filecompare = new FileComparison();
             filecompare.Show();
         }
 
+        //Opening the file folder...
         private void btnLoad_Click(object sender, EventArgs e)
         {
             try
@@ -231,6 +233,7 @@ namespace DataAnalysisSoftware
             }
         }
 
+        // button for opening interval list form.
         private void btnIntervalDetecion_Click(object sender, EventArgs e)
         {
             IntervalList intList = new IntervalList();
@@ -264,6 +267,7 @@ namespace DataAnalysisSoftware
             gi.Show();
         }
 
+        //reading the selected file from the list box
         public void fileReading(String data)
         {
 
@@ -479,6 +483,7 @@ namespace DataAnalysisSoftware
                 }
             }
 
+            //Fiterring the data for selection of HRData
             List<List<string>> filter = File.ReadLines(data)
                                            .SkipWhile(line => line != "[HRData]")
                                            .Skip(1)
@@ -686,13 +691,10 @@ namespace DataAnalysisSoftware
                     double normalizationPower = Math.Round(Math.Pow(powers, 1.0 / 4), 2);
                     double movingAverageSum = movAvg.Sum();
                     double movingAverageValue = movingAverageSum / movingAverageCount; // moving average value 
-                                                                                // movingAverageGlobal = movingAverageValue;  
                     normalizationPowerGlobal = normalizationPower;
-                    // ftp value 
                     double ftpData = 0.95 * avgPowerGlobal;
                     ftpGlobal = ftpData;
                     ifGlobal = normalizationPowerGlobal / ftpGlobal;
-                    // for tss 
                     
                     startTime = totalTime.First();
                     endTime = totalTime.Last();
@@ -702,17 +704,13 @@ namespace DataAnalysisSoftware
                     double lengthToSec = length.TotalSeconds;
                     double totalTimeDurationSec = lengthToSec;
                     
-                    double tssGlobalOne = normalizationPowerGlobal * ifGlobal * totalTimeDurationSec; // sec value left  
+                    double tssGlobalOne = normalizationPowerGlobal * ifGlobal * totalTimeDurationSec; 
                     double tssGlobalTwo = ftpGlobal * 3600;
                     double tssGlobalThree = tssGlobalOne / tssGlobalTwo;
                     double tssGlobalFour = tssGlobalThree * 100;
-                    tssGlobal = tssGlobalFour;   // calculating tss 
-                                                 // MessageBox.Show(ftpData.ToString()); 
-
-                    // string totalTimeDuration = TimeSpan.FromDays(totalTimeDurationSec).ToString(@"dd\:hh\:mm");
+                    tssGlobal = tssGlobalFour;
 
                     double threholdPowVal = Math.Round((105 * ftpGlobal) / 100, 2);
-                    // double thresholdPowResul = ftpGlobal - threholdPowVal;
                     int intervalCountUp = 0;
                     int intervalCountDown = 0;
                     List<double> chk = new List<double>();
@@ -723,8 +721,6 @@ namespace DataAnalysisSoftware
                         {
                             intervalCountUp = v;
                             chk.Add(v);
-
-                            // MessageBox.Show(intervalCountUp.ToString());
                         }
                         if (powerData[v] <= threholdPowVal)
                         {
@@ -748,6 +744,7 @@ namespace DataAnalysisSoftware
             }
         }
 
+        //Calculation of advance matrics
         private void advanceMatrics()
         {
             List<int> initialPower = new List<int>();
@@ -815,6 +812,7 @@ namespace DataAnalysisSoftware
             PILabel.Text = averpedInd.ToString();
         }
 
+        //Summary calulation.
         private void SummaryCalculation()
         {
             #region Filling up the summary data
@@ -868,6 +866,8 @@ namespace DataAnalysisSoftware
         {
             dataSelectCalculation();
         }
+
+        //caculaion of seleecting the data.
         public void dataSelectCalculation()
         {
             SelectedData selectData = new SelectedData();
@@ -880,8 +880,7 @@ namespace DataAnalysisSoftware
                 AvgHR1 += Convert.ToInt32(dataView.SelectedRows[i].Cells[1].Value);
             }
             AvgHR1 = AvgHR1 / selectedRowCount;
-
-            /////////////////////
+            
             Double MaxHR1 = dataView.SelectedRows.Cast<DataGridViewRow>()
                         .Max(r => Convert.ToInt32(r.Cells[1].Value));
 
@@ -916,8 +915,7 @@ namespace DataAnalysisSoftware
                 avgAlt += Convert.ToInt32(dataView.SelectedRows[i].Cells[4].Value);
             }
             avgAlt = avgAlt / selectedRowCount;
-
-            /////////////////////
+            
             Double MaxAvg = dataView.SelectedRows.Cast<DataGridViewRow>()
                         .Max(r => Convert.ToInt32(r.Cells[4].Value));
 
@@ -936,8 +934,7 @@ namespace DataAnalysisSoftware
                 AvgPwr += Convert.ToInt32(dataView.SelectedRows[i].Cells[5].Value);
             }
             AvgPwr = AvgPwr / selectedRowCount;
-
-            /////////////////////
+            
             Double MaxPwr = dataView.SelectedRows.Cast<DataGridViewRow>()
                         .Max(r => Convert.ToInt32(r.Cells[5].Value));
 
@@ -979,7 +976,7 @@ namespace DataAnalysisSoftware
             }
 
 
-            //////////////////////Selectable Data - Pedal index/////////////////////////////////////
+            //Selectable Data - Pedal index
             left = pedindex = right = 0;
             Larray = new double[dataView.SelectedRows.Count];
             Rarray = new double[dataView.SelectedRows.Count];
@@ -1153,6 +1150,7 @@ namespace DataAnalysisSoftware
             labeltss.Visible = true;
         }
 
+        //Finding intercal.
         public void FindIntervals()
         {
             bool Over = false;
@@ -1193,6 +1191,7 @@ namespace DataAnalysisSoftware
             }
         }
 
+        //Interval Detections
         public void intervalDetection()
         {
             double threholdPowVal = Math.Round((105 * ftpGlobal) / 100, 2);

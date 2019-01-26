@@ -44,6 +44,7 @@ namespace DataAnalysisSoftware
             ChunkDivision = count / chunkNumber;
         }
 
+        //summary data for chunk data that are to be calculated
         public void selectedDataSummary()
         {
             int chunkStart = 0;
@@ -72,9 +73,7 @@ namespace DataAnalysisSoftware
                     }
                     countVal = countHR;
                     chunkStart++;
-                    //  if(heartChunkValue.Length<ChunkDivison)
                     dataCalculation(chunkStart, heartChunkValue, sp1, cd1, al1, po1);
-
                 }
             }
             catch (Exception ex)

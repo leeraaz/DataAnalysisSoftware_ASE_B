@@ -17,6 +17,7 @@ namespace DataAnalysisSoftware
             InitializeComponent();
         }
 
+        //loading intervalas thata are detected in the file into grid view
         private void IntervalList_Load(object sender, EventArgs e)
         {
             try
@@ -42,10 +43,9 @@ namespace DataAnalysisSoftware
             {
 
             }
-
-            
         }
 
+        //listing the intervals.
         public void Detection()
         {
             List<double> powerAverage = new List<double>();

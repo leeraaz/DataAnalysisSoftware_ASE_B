@@ -13,6 +13,7 @@ namespace DataAnalysisSoftware
 {
     public partial class graphImage : Form
     {
+        //setting value for intervals detections.
         int[] intervals = new int[20] { 0, 150, 0, 300, 0, 450, 0, 600, 0, 750, 0, 900, 0, 1050, 0, 1200, 0, 1450, 0, 1600 };
         int intcounter = 0;
         public graphImage()
@@ -35,6 +36,7 @@ namespace DataAnalysisSoftware
             plotGraph();
         }
 
+        //ploting data into graph.
         private void plotGraph()
         {
             GraphPane myPane = zedGraphControl1.GraphPane;
@@ -52,7 +54,7 @@ namespace DataAnalysisSoftware
             PointPairList power = new PointPairList();
 
             myPane.XAxis.Scale.Min = 1;
-            myPane.XAxis.Scale.Max = 1000;
+            myPane.XAxis.Scale.Max = 2000;
 
             myPane.YAxis.Scale.Min = 1;
             myPane.YAxis.Scale.Max = 650;
@@ -111,7 +113,7 @@ namespace DataAnalysisSoftware
                 PointPairList speed = new PointPairList();
 
                 myPane.XAxis.Scale.Min = 1;
-                myPane.XAxis.Scale.Max = 4000;
+                myPane.XAxis.Scale.Max = 2000;
 
                 myPane.YAxis.Scale.Min = 1;
                 myPane.YAxis.Scale.Max = 650;
@@ -133,7 +135,7 @@ namespace DataAnalysisSoftware
                 PointPairList cadence = new PointPairList();
 
                 myPane.XAxis.Scale.Min = 1;
-                myPane.XAxis.Scale.Max = 4000;
+                myPane.XAxis.Scale.Max = 2000;
 
                 myPane.YAxis.Scale.Min = 1;
                 myPane.YAxis.Scale.Max = 650;
@@ -155,7 +157,7 @@ namespace DataAnalysisSoftware
                 PointPairList altitude = new PointPairList();
 
                 myPane.XAxis.Scale.Min = 1;
-                myPane.XAxis.Scale.Max = 4000;
+                myPane.XAxis.Scale.Max = 2000;
 
                 myPane.YAxis.Scale.Min = 1;
                 myPane.YAxis.Scale.Max = 650;
@@ -177,7 +179,7 @@ namespace DataAnalysisSoftware
                 PointPairList heart_rate = new PointPairList();
 
                 myPane.XAxis.Scale.Min = 1;
-                myPane.XAxis.Scale.Max = 4000;
+                myPane.XAxis.Scale.Max = 2000;
 
                 myPane.YAxis.Scale.Min = 1;
                 myPane.YAxis.Scale.Max = 650;
@@ -199,7 +201,7 @@ namespace DataAnalysisSoftware
                 PointPairList power = new PointPairList();
 
                 myPane.XAxis.Scale.Min = 1;
-                myPane.XAxis.Scale.Max = 4000;
+                myPane.XAxis.Scale.Max = 2000;
 
                 myPane.YAxis.Scale.Min = 1;
                 myPane.YAxis.Scale.Max = 650;
@@ -230,7 +232,7 @@ namespace DataAnalysisSoftware
                 PointPairList power = new PointPairList();
 
                 myPane.XAxis.Scale.Min = 1;
-                myPane.XAxis.Scale.Max = 4000;
+                myPane.XAxis.Scale.Max = 2000;
 
                 myPane.YAxis.Scale.Min = 1;
                 myPane.YAxis.Scale.Max = 650;
@@ -279,6 +281,7 @@ namespace DataAnalysisSoftware
             }
         }
 
+        //interval picker for the data.
         public void intervalPicker()
         {
             int high = 0;
@@ -339,6 +342,7 @@ namespace DataAnalysisSoftware
 
         }
 
+        //formula to increasing interval
         private void btnPlus_Click(object sender, EventArgs e)
         {
             intcounter++;
@@ -349,6 +353,7 @@ namespace DataAnalysisSoftware
             intervalPicker();
         }
 
+        //formula to decreasing interval
         private void btnMinus_Click(object sender, EventArgs e)
         {
             intcounter--;
